@@ -1,0 +1,3 @@
+# Cloudflare Workers output should not be uploaded as static assets.
+_worker.js
+_routes.json

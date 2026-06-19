@@ -1,0 +1,88 @@
+/*
+ * Meno design tokens.
+ * Source of truth: colors.json and variables.json.
+ */
+
+:root,
+[theme="light"] {
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --gray-950: #030712;
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-900: #1e3a8a;
+  --green-50: #f0fdf4;
+  --green-600: #16a34a;
+  --red-50: #fef2f2;
+  --red-600: #dc2626;
+  --amber-50: #fffbeb;
+  --amber-600: #d97706;
+  --topbar-surface: rgb(255 255 255 / 96%);
+  --text: #111827;
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+}
+
+[theme="dark"] {
+  --white: #0f1115;
+  --gray-50: #14171c;
+  --gray-100: #191d23;
+  --gray-200: #282e37;
+  --gray-300: #3a424e;
+  --gray-400: #77808e;
+  --gray-500: #9aa3b0;
+  --gray-600: #b8c0cc;
+  --gray-700: #d1d7df;
+  --gray-800: #e3e7ed;
+  --gray-900: #f2f4f7;
+  --gray-950: #ffffff;
+  --blue-50: #111d36;
+  --blue-100: #172a50;
+  --blue-200: #20417d;
+  --blue-300: #2f5aa6;
+  --blue-500: #60a5fa;
+  --blue-600: #3b82f6;
+  --blue-700: #93c5fd;
+  --blue-900: #dbeafe;
+  --green-50: #10281b;
+  --green-600: #4ade80;
+  --red-50: #32171a;
+  --red-600: #f87171;
+  --amber-50: #30230f;
+  --amber-600: #fbbf24;
+  --topbar-surface: rgb(15 17 21 / 96%);
+  --text: #f2f4f7;
+  --bg: #0f1115;
+  --muted: #9aa3b0;
+  --border: #282e37;
+  --accent: #3b82f6;
+}
+
+:root {
+  --sidebar-width: 236px;
+  --topbar-height: 64px;
+  --radius: 6px;
+  --transition: 180ms ease-out;
+  --display-size: 55px;
+  --page-title-size: 44px;
+  --section-title-size: 31px;
+  --body-size: 14px;
+  --page-max: 1440px;
+  --page-inset: 52px;
+}

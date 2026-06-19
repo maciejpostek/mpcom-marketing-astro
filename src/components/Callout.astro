@@ -1,16 +1,18 @@
 ---
 import { ArrowRight } from "@lucide/astro";
+import { resolveProps } from "meno-astro";
 import Portrait from "./Portrait.astro";
 
-interface Props {
-  eyebrow: string;
-  title: string;
-  action: string;
-  href: string;
-  portrait?: boolean;
-}
+const __props = resolveProps(Astro, {
+  eyebrow: { type: "string", default: "Start with context" },
+  title: { type: "string", default: "Define what the system actually needs." },
+  action: { type: "string", default: "Start a conversation" },
+  href: { type: "link", default: { href: "/contact" } },
+  portrait: { type: "boolean", default: false }
+});
+const { eyebrow, title, action, href, portrait } = __props;
 
-const { eyebrow, title, action, href, portrait = false } = Astro.props;
+const __meno = { acceptsStyles: true };
 ---
 
 <section class="callout">
@@ -21,7 +23,7 @@ const { eyebrow, title, action, href, portrait = false } = Astro.props;
       <h2>{title}</h2>
     </div>
   </div>
-  <a class="button button--primary" href={href}>
+  <a class="button button--primary" href={typeof href === "string" ? href : href.href}>
     {action}
     <ArrowRight size={15} />
   </a>

@@ -1,12 +1,15 @@
 ---
-interface Props {
-  index: string;
-  eyebrow: string;
-  title: string;
-  description: string;
-}
+import { resolveProps } from "meno-astro";
 
-const { index, eyebrow, title, description } = Astro.props;
+const __props = resolveProps(Astro, {
+  index: { type: "string", default: "01" },
+  eyebrow: { type: "string", default: "Section" },
+  title: { type: "string", default: "Section title" },
+  description: { type: "string", default: "Supporting description." }
+});
+const { index, eyebrow, title, description } = __props;
+
+const __meno = { acceptsStyles: true };
 ---
 
 <div class="section-heading">

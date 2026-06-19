@@ -1,12 +1,19 @@
 ---
 import { ArrowRight } from "@lucide/astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { BaseLayout } from "meno-astro/components";
 import PageHeader from "../components/PageHeader.astro";
+import SiteShell from "../components/SiteShell.astro";
 import Timeline from "../components/Timeline.astro";
 import { stages } from "../data/content";
+
+const meta = {
+  title: "Process — MPCOM",
+  description: "Explore the MPCOM reference process, its purpose, outputs and dependencies."
+};
 ---
 
-<BaseLayout title="Process — MPCOM">
+<BaseLayout meta={meta}>
+  <SiteShell>
   <div class="page page--wide">
     <PageHeader
       eyebrow="Process knowledge base"
@@ -37,4 +44,5 @@ import { stages } from "../data/content";
       </div>
     </div>
   </div>
+  </SiteShell>
 </BaseLayout>

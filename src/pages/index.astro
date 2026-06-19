@@ -1,16 +1,23 @@
 ---
 import { ArrowRight, Braces, PanelsTopLeft, Sparkles } from "@lucide/astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { BaseLayout } from "meno-astro/components";
 import Callout from "../components/Callout.astro";
 import Portrait from "../components/Portrait.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import SiteShell from "../components/SiteShell.astro";
 import { projects, stages } from "../data/content";
 
 const featuredProjects = projects.filter((project) => project.type === "case-study").slice(0, 2);
+const meta = {
+  title: "MPCOM — Product systems, designed to evolve",
+  description:
+    "Interface systems connecting product design, front-end components, AI context and governance."
+};
 ---
 
-<BaseLayout title="MPCOM — Product systems, designed to evolve">
+<BaseLayout meta={meta}>
+  <SiteShell>
   <div class="page">
     <section class="page-intro about-intro">
       <div class="about-hero-layout">
@@ -131,4 +138,5 @@ const featuredProjects = projects.filter((project) => project.type === "case-stu
       portrait
     />
   </div>
+  </SiteShell>
 </BaseLayout>

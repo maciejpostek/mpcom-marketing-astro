@@ -2,59 +2,46 @@
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
+import "../styles/theme.css";
 import "../styles/global.css";
+import { resolveProps } from "meno-astro";
 import Sidebar from "../components/Sidebar.astro";
 import TopBar from "../components/TopBar.astro";
 import StageDrawer from "../components/StageDrawer.astro";
 import ProjectDrawer from "../components/ProjectDrawer.astro";
 import { projects, stages } from "../data/content";
 
-interface Props {
-  title: string;
-  description?: string;
-}
-
-const {
-  title,
-  description = "MPCOM builds interface systems connecting product design, front-end components, AI context and governance."
-} = Astro.props;
+const __props = resolveProps(Astro, {});
 const activePath = Astro.url.pathname;
 ---
 
-<!doctype html>
-<html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="theme-color" content="#ffffff" />
-    <link rel="canonical" href={new URL(activePath, Astro.site)} />
-    <title>{title}</title>
-    <script is:inline>
-      const storedTheme = localStorage.getItem("mpcom-theme");
-      document.documentElement.dataset.theme =
-        storedTheme === "dark" || storedTheme === "light" ? storedTheme : "light";
-    </script>
-  </head>
-  <body>
-    <div class="app">
-      <Sidebar activePath={activePath} />
-      <div class="app__workspace">
-        <TopBar />
-        <main class="main">
-          <slot />
-        </main>
-      </div>
-      <StageDrawer stages={stages} />
-      <ProjectDrawer projects={projects} />
-    </div>
+<script is:inline>
+  const storedTheme = localStorage.getItem("mpcom-theme");
+  const initialTheme =
+    storedTheme === "dark" || storedTheme === "light" ? storedTheme : "light";
+  document.documentElement.dataset.theme = initialTheme;
+  document.documentElement.setAttribute("theme", initialTheme);
+</script>
 
-    <script>
+<div class="app">
+  <Sidebar activePath={activePath} />
+  <div class="app__workspace">
+    <TopBar />
+    <main class="main">
+      <slot />
+    </main>
+  </div>
+  <StageDrawer stages={stages} />
+  <ProjectDrawer projects={projects} />
+</div>
+
+<script>
       const root = document.documentElement;
       const themeToggle = document.querySelector("[data-theme-toggle]");
       themeToggle?.addEventListener("click", () => {
         const next = root.dataset.theme === "dark" ? "light" : "dark";
         root.dataset.theme = next;
+        root.setAttribute("theme", next);
         localStorage.setItem("mpcom-theme", next);
       });
 
@@ -219,6 +206,4 @@ const activePath = Astro.url.pathname;
           if (label) label.textContent = "hello@maciejpostek.com";
         }, 1600);
       });
-    </script>
-  </body>
-</html>
+</script>

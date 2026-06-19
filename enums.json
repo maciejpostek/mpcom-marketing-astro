@@ -1,0 +1,4 @@
+{
+  "theme": ["light", "dark"],
+  "portraitVariant": ["avatar", "hero", "callout", "contact"]
+}

@@ -1,11 +1,28 @@
 ---
 import { ArrowLeft, ArrowRight, Check, Copy, ExternalLink, Folder, MapPin, Send } from "@lucide/astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { BaseLayout } from "meno-astro/components";
 import PageHeader from "../components/PageHeader.astro";
 import Portrait from "../components/Portrait.astro";
+import SiteShell from "../components/SiteShell.astro";
+
+const meta = {
+  title: "Contact — MPCOM",
+  description: "Book an introductory call or share the current product context with MPCOM."
+};
+
+const calendarWeekdays = ["M", "T", "W", "T", "F", "S", "S"];
+const calendarDays = Array.from({ length: 35 }, (_, index) => {
+  const day = index - 1;
+
+  return {
+    day,
+    available: [7, 9, 14, 16, 21, 23, 28].includes(day)
+  };
+});
 ---
 
-<BaseLayout title="Contact — MPCOM">
+<BaseLayout meta={meta}>
+  <SiteShell>
   <div class="page">
     <PageHeader
       eyebrow="Contact"
@@ -33,13 +50,17 @@ import Portrait from "../components/Portrait.astro";
             <button class="icon-button" type="button" title="Next month"><ArrowRight size={15} /></button>
           </div>
           <div class="calendar-grid">
-            {["M", "T", "W", "T", "F", "S", "S"].map((day) => <span class="calendar-day-label">{day}</span>)}
+            {calendarWeekdays.map((day) => <span class="calendar-day-label">{day}</span>)}
             {
-              Array.from({ length: 35 }).map((_, index) => {
-                const day = index - 1;
-                const available = [7, 9, 14, 16, 21, 23, 28].includes(day);
-                return <button class:list={["calendar-day", { "is-available": available }]} type="button" disabled={day < 1 || day > 31}>{day > 0 && day <= 31 ? day : ""}</button>;
-              })
+              calendarDays.map((item) => (
+                <button
+                  class:list={["calendar-day", { "is-available": item.available }]}
+                  type="button"
+                  disabled={item.day < 1 || item.day > 31}
+                >
+                  {item.day > 0 && item.day <= 31 ? item.day : ""}
+                </button>
+              ))
             }
           </div>
         </div>
@@ -87,4 +108,5 @@ import Portrait from "../components/Portrait.astro";
       </a>
     </div>
   </div>
+  </SiteShell>
 </BaseLayout>

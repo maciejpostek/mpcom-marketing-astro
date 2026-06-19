@@ -1,11 +1,18 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { BaseLayout } from "meno-astro/components";
 import Callout from "../components/Callout.astro";
 import PageHeader from "../components/PageHeader.astro";
+import SiteShell from "../components/SiteShell.astro";
 import { agencyPartners, clientNames, industries, testimonials } from "../data/content";
+
+const meta = {
+  title: "Clients & Partners — MPCOM",
+  description: "Selected product work, client feedback and specialist agency collaborations."
+};
 ---
 
-<BaseLayout title="Clients & Partners — MPCOM">
+<BaseLayout meta={meta}>
+  <SiteShell>
   <div class="page">
     <PageHeader
       eyebrow="Clients & partners"
@@ -74,4 +81,5 @@ import { agencyPartners, clientNames, industries, testimonials } from "../data/c
       portrait
     />
   </div>
+  </SiteShell>
 </BaseLayout>

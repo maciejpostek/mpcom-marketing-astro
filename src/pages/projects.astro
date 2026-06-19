@@ -1,15 +1,22 @@
 ---
 import { ExternalLink } from "@lucide/astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { BaseLayout } from "meno-astro/components";
 import PageHeader from "../components/PageHeader.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import SiteShell from "../components/SiteShell.astro";
 import { projects } from "../data/content";
 
 const caseStudies = projects.filter((project) => project.type === "case-study");
 const archive = projects.filter((project) => project.type === "project");
+const meta = {
+  title: "Projects — MPCOM",
+  description:
+    "Selected interface systems, product projects and the path toward design engineering."
+};
 ---
 
-<BaseLayout title="Projects — MPCOM">
+<BaseLayout meta={meta}>
+  <SiteShell>
   <div class="page">
     <PageHeader
       eyebrow="Projects"
@@ -40,4 +47,5 @@ const archive = projects.filter((project) => project.type === "project");
       }
     </section>
   </div>
+  </SiteShell>
 </BaseLayout>

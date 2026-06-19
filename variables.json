@@ -1,0 +1,84 @@
+{
+  "variables": [
+    {
+      "name": "Layout",
+      "prop_name": "Sidebar width",
+      "cssVar": "--sidebar-width",
+      "value": "236px",
+      "type": "none",
+      "group": "size"
+    },
+    {
+      "name": "Layout",
+      "prop_name": "Topbar height",
+      "cssVar": "--topbar-height",
+      "value": "64px",
+      "type": "none",
+      "group": "size"
+    },
+    {
+      "name": "Shape",
+      "prop_name": "Default radius",
+      "cssVar": "--radius",
+      "value": "6px",
+      "type": "none",
+      "group": "border-radius"
+    },
+    {
+      "name": "Motion",
+      "prop_name": "Default transition",
+      "cssVar": "--transition",
+      "value": "180ms ease-out",
+      "type": "none",
+      "group": "other"
+    },
+    {
+      "name": "Typography",
+      "prop_name": "Display",
+      "cssVar": "--display-size",
+      "value": "55px",
+      "type": "none",
+      "group": "font-size"
+    },
+    {
+      "name": "Typography",
+      "prop_name": "Page title",
+      "cssVar": "--page-title-size",
+      "value": "44px",
+      "type": "none",
+      "group": "font-size"
+    },
+    {
+      "name": "Typography",
+      "prop_name": "Section title",
+      "cssVar": "--section-title-size",
+      "value": "31px",
+      "type": "none",
+      "group": "font-size"
+    },
+    {
+      "name": "Typography",
+      "prop_name": "Body",
+      "cssVar": "--body-size",
+      "value": "14px",
+      "type": "none",
+      "group": "font-size"
+    },
+    {
+      "name": "Layout",
+      "prop_name": "Page maximum",
+      "cssVar": "--page-max",
+      "value": "1440px",
+      "type": "none",
+      "group": "size"
+    },
+    {
+      "name": "Layout",
+      "prop_name": "Page inset",
+      "cssVar": "--page-inset",
+      "value": "52px",
+      "type": "none",
+      "group": "padding"
+    }
+  ]
+}

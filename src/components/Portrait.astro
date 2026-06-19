@@ -1,14 +1,24 @@
 ---
-type Variant = "avatar" | "hero" | "callout" | "contact";
+import { resolveProps } from "meno-astro";
 
-interface Props {
-  variant?: Variant;
-  title?: string;
-}
+const __props = resolveProps(Astro, {
+  variant: {
+    type: "select",
+    default: "avatar",
+    options: ["avatar", "hero", "callout", "contact"]
+  },
+  title: { type: "string", default: "Maciej Postek" },
+  image: {
+    type: "file",
+    accept: "image/*",
+    default: "/images/maciej-portrait.jpg"
+  }
+});
+const { variant, title, image } = __props;
 
-const { variant = "avatar", title = "Maciej Postek" } = Astro.props;
+const __meno = { acceptsStyles: true };
 ---
 
 <span class={`portrait portrait--${variant}`} title={title}>
-  <img src="/images/maciej-portrait.jpg" alt="Maciej Postek" loading={variant === "hero" ? "eager" : "lazy"} />
+  <img src={image} alt={title} loading={variant === "hero" ? "eager" : "lazy"} />
 </span>

@@ -7,12 +7,14 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "meno:check": "node scripts/check-meno-project.mjs"
   },
   "dependencies": {
     "@lucide/astro": "1.21.0",
     "@fontsource/inter": "^5.2.8",
-    "astro": "6.4.8"
+    "astro": "6.4.8",
+    "meno-astro": "^0.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
