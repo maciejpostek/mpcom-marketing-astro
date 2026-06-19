@@ -1,7 +1,7 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { parse } from "meno-astro/dialect";
+import { emit, parse } from "meno-astro/dialect";
 
 const root = process.cwd();
 const failures = [];
@@ -87,7 +87,17 @@ if (await exists("src/pages") && await exists("src/components")) {
 
   for (const relativePath of astroFiles) {
     try {
-      parse(await readFile(path.join(root, relativePath), "utf8"));
+      const source = await readFile(path.join(root, relativePath), "utf8");
+      const parsed = parse(source);
+      parse(emit(parsed.model));
+
+      if (/\bclass\s*=\s*["']/u.test(source)) {
+        failures.push(`${relativePath}: raw class attribute is not round-trippable`);
+      }
+
+      if (/ \d+\.astro$/u.test(relativePath)) {
+        failures.push(`${relativePath}: Meno conflict-copy filename is not allowed`);
+      }
     } catch (error) {
       failures.push(`${relativePath}: Meno dialect parse failed (${error.message})`);
     }

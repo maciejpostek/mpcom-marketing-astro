@@ -8,11 +8,11 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "meno:check": "node scripts/check-meno-project.mjs"
+    "meno:check": "node scripts/check-meno-project.mjs",
+    "meno:push": "node scripts/sync-meno-project.mjs to-meno",
+    "meno:pull": "node scripts/sync-meno-project.mjs from-meno"
   },
   "dependencies": {
-    "@lucide/astro": "1.21.0",
-    "@fontsource/inter": "^5.2.8",
     "astro": "6.4.8",
     "meno-astro": "^0.1.0"
   },

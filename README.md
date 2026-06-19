@@ -23,10 +23,10 @@ required by Meno.
 ## Scope
 
 - About
-- Process and interactive stage documentation
+- Process timeline and stage documentation
 - Services, pricing models and AI-based UI kit
 - Clients and testimonials
-- Projects and shareable case-study drawers
+- Featured proof assets and project archive
 - Contact
 - Light and dark themes
 

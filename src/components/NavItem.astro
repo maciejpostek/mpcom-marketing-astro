@@ -1,0 +1,92 @@
+---
+import { resolveProps, style } from "meno-astro";
+import { Link } from "meno-astro/components";
+
+const __props = resolveProps(Astro, {
+  text: { type: "string", default: "Navigation item" },
+  link: { type: "link", default: { href: "/" } },
+  active: { type: "boolean", default: false }
+});
+const { text, link, active, class: className } = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<Link
+  href={link}
+  class={style(
+    {
+      base: {
+        minHeight: "40px",
+        padding: "0 10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        border: "1px solid",
+        borderColor: {
+          _mapping: true,
+          prop: "active",
+          values: { true: "var(--blue-100)", false: "transparent" }
+        },
+        borderRadius: "4px",
+        backgroundColor: {
+          _mapping: true,
+          prop: "active",
+          values: { true: "var(--blue-50)", false: "transparent" }
+        },
+        color: {
+          _mapping: true,
+          prop: "active",
+          values: { true: "var(--blue-700)", false: "var(--gray-600)" }
+        },
+        fontSize: "14px",
+        fontWeight: {
+          _mapping: true,
+          prop: "active",
+          values: { true: "500", false: "400" }
+        },
+        textDecoration: "none",
+        transition: "background-color 180ms ease-out, color 180ms ease-out"
+      },
+      tablet: {},
+      mobile: {}
+    },
+    __props,
+    {
+      root: true,
+      interactive: [
+        {
+          name: "hover",
+          prefix: "",
+          postfix: ":hover",
+          style: {
+            base: {
+              backgroundColor: "var(--gray-50)",
+              color: "var(--gray-950)"
+            }
+          }
+        }
+      ]
+    }
+  )}
+>
+  <span>{text}</span>
+  {active && (
+    <span
+      class={style(
+        {
+          base: {
+            fontSize: "14px",
+            lineHeight: "1",
+            color: "var(--blue-600)"
+          },
+          tablet: {},
+          mobile: {}
+        },
+        __props
+      )}
+    >
+      {"->"}
+    </span>
+  )}
+</Link>

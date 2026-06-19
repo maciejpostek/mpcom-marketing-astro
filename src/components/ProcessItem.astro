@@ -1,0 +1,62 @@
+---
+import { resolveProps, style } from "meno-astro";
+import { Link } from "meno-astro/components";
+
+const __props = resolveProps(Astro, {
+  number: { type: "string", default: "1.0" },
+  title: { type: "string", default: "Discovery & Audit" },
+  link: { type: "link", default: { href: "/process" } },
+  active: { type: "boolean", default: false }
+});
+const { number, title, link, active, class: className } = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<Link
+  href={link}
+  class={style(
+    {
+      base: {
+        minHeight: "54px",
+        padding: "0 16px",
+        display: "grid",
+        gridTemplateColumns: "54px minmax(0, 1fr) 24px",
+        gap: "12px",
+        alignItems: "center",
+        borderBottom: "1px solid var(--gray-200)",
+        backgroundColor: {
+          _mapping: true,
+          prop: "active",
+          values: { true: "var(--blue-50)", false: "transparent" }
+        },
+        color: "var(--gray-900)",
+        textDecoration: "none"
+      },
+      tablet: {},
+      mobile: {}
+    },
+    __props,
+    {
+      root: true,
+      interactive: [
+        {
+          name: "hover",
+          prefix: "",
+          postfix: ":hover",
+          style: { base: { backgroundColor: "var(--gray-50)" } }
+        }
+      ]
+    }
+  )}
+>
+  <span class={style({ base: { color: "var(--gray-500)", fontSize: "11px" }, tablet: {}, mobile: {} }, __props)}>
+    {number}
+  </span>
+  <strong class={style({ base: { fontSize: "14px", fontWeight: "500" }, tablet: {}, mobile: {} }, __props)}>
+    {title}
+  </strong>
+  <span class={style({ base: { color: "var(--blue-600)", fontSize: "14px" }, tablet: {}, mobile: {} }, __props)}>
+    {"->"}
+  </span>
+</Link>

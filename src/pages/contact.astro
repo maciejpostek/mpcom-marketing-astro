@@ -1,112 +1,91 @@
 ---
-import { ArrowLeft, ArrowRight, Check, Copy, ExternalLink, Folder, MapPin, Send } from "@lucide/astro";
-import { BaseLayout } from "meno-astro/components";
-import PageHeader from "../components/PageHeader.astro";
-import Portrait from "../components/Portrait.astro";
+import { style } from "meno-astro";
+import { BaseLayout, Link } from "meno-astro/components";
+import ContactField from "../components/ContactField.astro";
+import PageHero from "../components/PageHero.astro";
 import SiteShell from "../components/SiteShell.astro";
+import "../styles/theme.css";
 
 const meta = {
   title: "Contact — MPCOM",
   description: "Book an introductory call or share the current product context with MPCOM."
 };
-
-const calendarWeekdays = ["M", "T", "W", "T", "F", "S", "S"];
-const calendarDays = Array.from({ length: 35 }, (_, index) => {
-  const day = index - 1;
-
-  return {
-    day,
-    available: [7, 9, 14, 16, 21, 23, 28].includes(day)
-  };
-});
 ---
 
 <BaseLayout meta={meta}>
-  <SiteShell>
-  <div class="page">
-    <PageHeader
-      eyebrow="Contact"
-      title="Bring the product context. We will start by defining what the system actually needs."
-      description="Book an introductory call or send the current product, files and problem in writing."
-    />
+  <SiteShell contactActive={true}>
+    <div class={style({ base: { width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 48px 72px" }, tablet: { padding: "0 32px 56px" }, mobile: {} }, undefined, { label: "Contact page" })}>
+      <PageHero
+        eyebrow="Contact"
+        title="Bring the product context. We will start by defining what the system actually needs."
+        description="Book an introductory call or send the current product, files and problem in writing."
+      />
 
-    <div class="contact-layout">
-      <section class="calendar-placeholder">
-        <div class="contact-profile">
-          <Portrait variant="contact" title="Maciej Postek" />
-          <div>
-            <span class="metric-label">Your project partner</span>
-            <strong>Maciej Postek</strong>
-            <p>Warsaw · Product design, systems and front-end</p>
+      <div class={style({ base: { paddingTop: "64px", display: "grid", gridTemplateColumns: "minmax(0, 0.85fr) minmax(0, 1.15fr)", gap: "12px" }, tablet: { gridTemplateColumns: "1fr" }, mobile: {} }, undefined, { label: "Contact options" })}>
+        <section class={style({ base: { padding: "30px", backgroundColor: "var(--gray-50)", border: "1px solid var(--gray-200)" }, tablet: {}, mobile: {} }, undefined, { label: "Call booking" })}>
+          <div class={style({ base: { paddingBottom: "26px", display: "flex", alignItems: "center", gap: "16px", borderBottom: "1px solid var(--gray-200)" }, tablet: {}, mobile: {} }, undefined)}>
+            <img src="/images/maciej-portrait.jpg" alt="Maciej Postek" class={style({ base: { width: "58px", height: "58px", objectFit: "cover", borderRadius: "50%" }, tablet: {}, mobile: {} }, undefined)} />
+            <div>
+              <span class={style({ base: { display: "block", marginBottom: "5px", color: "var(--blue-700)", fontSize: "10px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Your project partner</span>
+              <strong class={style({ base: { display: "block", fontSize: "15px" }, tablet: {}, mobile: {} }, undefined)}>Maciej Postek</strong>
+              <span class={style({ base: { color: "var(--gray-500)", fontSize: "11px" }, tablet: {}, mobile: {} }, undefined)}>Warsaw · Product design, systems and front-end</span>
+            </div>
           </div>
-        </div>
-        <div class="calendar-placeholder__top">
-          <span class="metric-label">Introductory call</span><span>30 min · Google Meet</span>
-        </div>
-        <div class="calendar-month">
-          <div class="calendar-month__header">
-            <button class="icon-button" type="button" title="Previous month"><ArrowLeft size={15} /></button>
-            <strong>July 2026</strong>
-            <button class="icon-button" type="button" title="Next month"><ArrowRight size={15} /></button>
+          <div class={style({ base: { padding: "28px 0 20px", display: "flex", justifyContent: "space-between", gap: "20px" }, tablet: {}, mobile: {} }, undefined)}>
+            <div>
+              <span class={style({ base: { display: "block", marginBottom: "6px", color: "var(--gray-500)", fontSize: "10px", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Introductory call</span>
+              <strong class={style({ base: { fontSize: "18px", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>30 min · Google Meet</strong>
+            </div>
+            <span class={style({ base: { color: "var(--blue-700)", fontSize: "12px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>July 2026</span>
           </div>
-          <div class="calendar-grid">
-            {calendarWeekdays.map((day) => <span class="calendar-day-label">{day}</span>)}
-            {
-              calendarDays.map((item) => (
-                <button
-                  class:list={["calendar-day", { "is-available": item.available }]}
-                  type="button"
-                  disabled={item.day < 1 || item.day > 31}
-                >
-                  {item.day > 0 && item.day <= 31 ? item.day : ""}
-                </button>
-              ))
-            }
+          <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "8px" }, tablet: {}, mobile: {} }, undefined)}>
+            <button type="button" class={style({ base: { minHeight: "46px", border: "1px solid var(--gray-200)", backgroundColor: "#ffffff", color: "var(--gray-700)" }, tablet: {}, mobile: {} }, undefined)}>07</button>
+            <button type="button" class={style({ base: { minHeight: "46px", border: "1px solid var(--blue-600)", backgroundColor: "var(--blue-600)", color: "#ffffff" }, tablet: {}, mobile: {} }, undefined)}>09</button>
+            <button type="button" class={style({ base: { minHeight: "46px", border: "1px solid var(--gray-200)", backgroundColor: "#ffffff", color: "var(--gray-700)" }, tablet: {}, mobile: {} }, undefined)}>14</button>
+            <button type="button" class={style({ base: { minHeight: "46px", border: "1px solid var(--gray-200)", backgroundColor: "#ffffff", color: "var(--gray-700)" }, tablet: {}, mobile: {} }, undefined)}>16</button>
+            <button type="button" class={style({ base: { minHeight: "46px", border: "1px solid var(--gray-200)", backgroundColor: "#ffffff", color: "var(--gray-700)" }, tablet: {}, mobile: {} }, undefined)}>21</button>
           </div>
-        </div>
-        <p>Calendar integration is represented as a visual placeholder in this MVP.</p>
-      </section>
+          <p class={style({ base: { margin: "18px 0 0", color: "var(--gray-500)", fontSize: "11px", lineHeight: "1.55" }, tablet: {}, mobile: {} }, undefined)}>Calendar integration is represented as a visual placeholder in this MVP.</p>
+        </section>
 
-      <section class="contact-form-panel">
-        <form class="contact-form" data-contact-form>
-          <div class="form-row">
-            <label class="field"><span>First name</span><input name="firstName" placeholder="Alex" /></label>
-            <label class="field"><span>Last name</span><input name="lastName" placeholder="Morgan" /></label>
+        <section class={style({ base: { padding: "30px", border: "1px solid var(--gray-200)", backgroundColor: "#ffffff" }, tablet: {}, mobile: {} }, undefined, { label: "Project form" })}>
+          <form data-contact-form class={style({ base: { display: "grid", gap: "18px" }, tablet: {}, mobile: {} }, undefined)}>
+            <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "12px" }, tablet: {}, mobile: {} }, undefined)}>
+              <ContactField label="First name" name="firstName" placeholder="Alex" />
+              <ContactField label="Last name" name="lastName" placeholder="Morgan" />
+            </div>
+            <ContactField label="Work e-mail" name="email" type="email" placeholder="alex@company.com" />
+            <ContactField label="Company" name="company" placeholder="Company name" />
+            <ContactField label="Current product or website" name="website" type="url" placeholder="https://" />
+            <ContactField label="Project context" name="context" placeholder="What are you building, what is changing and where does the current system create friction?" multiline={true} />
+            <button type="submit" class={style({ base: { minHeight: "46px", padding: "0 18px", border: "0", backgroundColor: "var(--blue-600)", color: "#ffffff", fontSize: "13px", fontWeight: "600", cursor: "pointer" }, tablet: {}, mobile: {} }, undefined)}>Send project context →</button>
+          </form>
+          <div data-contact-success hidden class={style({ base: { minHeight: "420px", padding: "40px", placeContent: "center", backgroundColor: "var(--blue-50)", border: "1px solid var(--blue-200)" }, tablet: {}, mobile: {} }, undefined)}>
+            <span class={style({ base: { display: "block", marginBottom: "12px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Message received</span>
+            <h2 class={style({ base: { margin: "0 0 12px", fontSize: "26px", lineHeight: "1.25", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>Thank you. I will review the context before getting back to you.</h2>
+            <p class={style({ base: { margin: "0", color: "var(--gray-600)", fontSize: "13px" }, tablet: {}, mobile: {} }, undefined)}>This is a prototype success state. No information has been sent.</p>
           </div>
-          <label class="field"><span>Work e-mail</span><input name="email" type="email" placeholder="alex@company.com" /></label>
-          <label class="field"><span>Company</span><input name="company" placeholder="Company name" /></label>
-          <label class="field"><span>Current product or website</span><input name="website" placeholder="https://" /></label>
-          <label class="field"><span>Project context</span><textarea name="context" placeholder="What are you building, what is changing and where does the current system create friction?"></textarea></label>
-          <label class="file-drop">
-            <Folder size={18} />
-            <span><strong>Attach project context</strong>Brief, audit or product screenshots</span>
-            <input type="file" />
-          </label>
-          <button class="button button--primary button--full" type="submit">
-            Send project context
-            <Send size={15} />
-          </button>
-        </form>
+        </section>
+      </div>
 
-        <div class="form-success" data-contact-success hidden>
-          <span class="success-icon"><Check size={24} /></span>
-          <span class="metric-label">Message received</span>
-          <h2>Thank you. I will review the context before getting back to you.</h2>
-          <p>This is a prototype success state. No information has been sent.</p>
-          <button class="button button--secondary" type="button" data-reset-contact>Send another message</button>
-        </div>
-      </section>
+      <div class={style({ base: { marginTop: "12px", padding: "18px 22px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "20px", border: "1px solid var(--gray-200)", backgroundColor: "var(--gray-50)", color: "var(--gray-600)", fontSize: "12px" }, tablet: {}, mobile: {} }, undefined)}>
+        <span>Warsaw, Poland · Working with EU and US teams</span>
+        <span>hello@maciejpostek.com</span>
+        <Link href="https://www.linkedin.com" class={style({ base: { color: "var(--blue-700)", fontWeight: "600", textDecoration: "none" }, tablet: {}, mobile: {} }, undefined)}>LinkedIn ↗</Link>
+      </div>
     </div>
-
-    <div class="contact-details">
-      <div><MapPin size={16} /><span>Warsaw, Poland · Working with EU and US teams</span></div>
-      <button type="button" data-copy-email>
-        <Copy size={16} /><span data-copy-label>hello@maciejpostek.com</span>
-      </button>
-      <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
-        <ExternalLink size={15} />LinkedIn
-      </a>
-    </div>
-  </div>
   </SiteShell>
 </BaseLayout>
+
+<script is:inline>
+  document.querySelector("[data-contact-form]")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const success = document.querySelector("[data-contact-success]");
+    form.hidden = true;
+    if (success) {
+      success.hidden = false;
+      success.style.display = "grid";
+    }
+  });
+</script>

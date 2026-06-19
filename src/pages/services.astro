@@ -1,10 +1,11 @@
 ---
-import { ArrowRight, BookOpen, Braces, Check, PanelsTopLeft, Sparkles } from "@lucide/astro";
-import { BaseLayout } from "meno-astro/components";
+import { style } from "meno-astro";
+import { BaseLayout, Link } from "meno-astro/components";
 import Callout from "../components/Callout.astro";
-import PageHeader from "../components/PageHeader.astro";
+import ContentCard from "../components/ContentCard.astro";
+import PageHero from "../components/PageHero.astro";
 import SiteShell from "../components/SiteShell.astro";
-import { pricingModels, servicePackages } from "../data/content";
+import "../styles/theme.css";
 
 const meta = {
   title: "Services — MPCOM",
@@ -13,102 +14,80 @@ const meta = {
 ---
 
 <BaseLayout meta={meta}>
-  <SiteShell>
-  <div class="page">
-    <PageHeader
-      eyebrow="Services"
-      title="Configure the right engagement without forcing the project into a generic package."
-      description="Packages explain the most common paths. Discovery determines the actual combination of work."
-    />
+  <SiteShell servicesActive={true}>
+    <div class={style({ base: { width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 48px 72px" }, tablet: { padding: "0 32px 56px" }, mobile: {} }, undefined, { label: "Services page" })}>
+      <PageHero
+        eyebrow="Services"
+        title="Configure the right engagement without forcing the project into a generic package."
+        description="Packages explain the most common paths. Discovery determines the actual combination of work."
+      />
 
-    <div class="segmented-control" role="tablist" aria-label="Services">
-      <button class="is-active" type="button" data-service-tab="packages">Service Packages</button>
-      <button type="button" data-service-tab="pricing">Pricing Models</button>
-      <button type="button" data-service-tab="ui-kit">AI-based UI Kit</button>
-    </div>
+      <nav
+        class={style(
+          {
+            base: {
+              position: "sticky",
+              top: "64px",
+              zIndex: "10",
+              padding: "18px 0",
+              display: "flex",
+              gap: "8px",
+              backgroundColor: "#ffffff",
+              borderBottom: "1px solid var(--gray-200)"
+            },
+            tablet: {},
+            mobile: {}
+          },
+          undefined,
+          { label: "Service categories" }
+        )}
+      >
+        <Link href="#packages" class={style({ base: { padding: "9px 12px", backgroundColor: "var(--blue-600)", color: "#ffffff", fontSize: "12px", fontWeight: "500", textDecoration: "none" }, tablet: {}, mobile: {} }, undefined)}>Service Packages</Link>
+        <Link href="#pricing" class={style({ base: { padding: "9px 12px", backgroundColor: "var(--gray-100)", color: "var(--gray-800)", fontSize: "12px", fontWeight: "500", textDecoration: "none" }, tablet: {}, mobile: {} }, undefined)}>Pricing Models</Link>
+        <Link href="#ui-kit" class={style({ base: { padding: "9px 12px", backgroundColor: "var(--gray-100)", color: "var(--gray-800)", fontSize: "12px", fontWeight: "500", textDecoration: "none" }, tablet: {}, mobile: {} }, undefined)}>AI-based UI Kit</Link>
+      </nav>
 
-    <div data-service-panel="packages">
-      <div class="service-list">
-        {
-          servicePackages.map((service, index) => (
-            <article class="service-row">
-              <div class="service-row__index">{String(index + 1).padStart(2, "0")}</div>
-              <div class="service-row__content">
-                <span class="metric-label">{service.eyebrow}</span>
-                <h2>{service.name}</h2>
-                <p>{service.description}</p>
-                <div class="tool-row">
-                  {service.tools.map((tool) => (
-                    <span class="tool-badge" title={tool.name}>
-                      <i>{tool.abbr}</i>
-                      {tool.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <ul class="service-row__includes">
-                {service.includes.map((item) => (
-                  <li><Check size={14} />{item}</li>
-                ))}
-              </ul>
-              <a class="icon-button" href="/contact" title={`Discuss ${service.name}`}>
-                <ArrowRight size={17} />
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-
-    <div data-service-panel="pricing" hidden>
-      <div class="pricing-grid">
-        {
-          pricingModels.map((model, index) => (
-            <article class:list={["pricing-card", { "pricing-card--featured": index === 2 }]}>
-              <div class="pricing-card__top">
-                <span class="metric-label">{model.bestFor}</span>
-                {index === 2 && <span class="badge badge--blue">Recommended</span>}
-              </div>
-              <h2>{model.name}</h2>
-              <p>{model.description}</p>
-              <ul>
-                {model.points.map((point) => <li><Check size={14} />{point}</li>)}
-              </ul>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-
-    <div data-service-panel="ui-kit" hidden>
-      <div class="ui-kit-layout">
-        <div class="ui-kit-main">
-          <span class="metric-label">Product foundation</span>
-          <h2>Do not spend the first weeks rebuilding the same interface basics.</h2>
-          <p>
-            Start with a documented UI foundation in Figma and React, then adapt the visual
-            language, product flows and component set to your context.
-          </p>
-          <a class="button button--primary" href="/contact">
-            Discuss customization
-            <ArrowRight size={15} />
-          </a>
+      <section id="packages" class={style({ base: { paddingTop: "64px" }, tablet: {}, mobile: {} }, undefined, { label: "Service packages" })}>
+        <span class={style({ base: { display: "block", marginBottom: "10px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Service packages</span>
+        <h2 class={style({ base: { maxWidth: "760px", margin: "0 0 30px", fontSize: "32px", lineHeight: "1.2", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>Start with the layer the product needs now, then connect the rest when it creates value.</h2>
+        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }, mobile: {} }, undefined)}>
+          <ContentCard eyebrow="Start here" title="Discovery & Strategy Sprint" description="Turn uncertainty into a validated direction and a realistic build recommendation." itemOne="Product audit" itemTwo="Information architecture" itemThree="Prototype" itemFour="Scope recommendation" featured={true} />
+          <ContentCard eyebrow="Design" title="Interface System Design" description="Design product flows, reusable foundations and a Figma system prepared for implementation." itemOne="Product UX/UI" itemTwo="Figma design system" itemThree="States & variants" itemFour="Usage rules" />
+          <ContentCard eyebrow="Development" title="Front-end Design System" description="Translate the approved interface system into reusable components and technical documentation." itemOne="React components" itemTwo="Design tokens" itemThree="Storybook" itemFour="Technical specs" />
+          <ContentCard eyebrow="Full system" title="Full Design System Build" description="Connect strategy, product design, component engineering, context and governance." itemOne="Discovery" itemTwo="Interface system" itemThree="Front-end system" itemFour="AI context & governance" />
+          <ContentCard eyebrow="Website" title="AI-native Website System" description="A code-native website built as an extensible component system with a structured content model." itemOne="Website strategy" itemTwo="Astro build" itemThree="Sanity content model" itemFour="AI-ready context" />
+          <ContentCard eyebrow="Starter" title="UI Kit + Customization" description="Begin with an AI-ready interface foundation and adapt it to your product, industry and flows." itemOne="Figma UI kit" itemTwo="React foundation" itemThree="UX patterns" itemFour="Customization" />
         </div>
-        <div class="ui-kit-system">
-          <div class="system-layer"><span><PanelsTopLeft size={17} /></span><div><strong>Figma foundation</strong><p>Tokens, components, variants and states.</p></div></div>
-          <div class="system-layer"><span><Braces size={17} /></span><div><strong>React foundation</strong><p>Reusable components prepared for extension.</p></div></div>
-          <div class="system-layer"><span><BookOpen size={17} /></span><div><strong>UX patterns</strong><p>Common flows and rules beyond visual styling.</p></div></div>
-          <div class="system-layer"><span><Sparkles size={17} /></span><div><strong>AI context</strong><p>Documentation describing when and how to use the system.</p></div></div>
-        </div>
-      </div>
-    </div>
+      </section>
 
-    <Callout
-      eyebrow="Not sure which path fits?"
-      title="Start with a smaller Discovery sprint and define the system before committing to the full build."
-      action="Discuss the product"
-      href="/contact"
-    />
-  </div>
+      <section id="pricing" class={style({ base: { paddingTop: "88px" }, tablet: {}, mobile: {} }, undefined, { label: "Pricing models" })}>
+        <span class={style({ base: { display: "block", marginBottom: "10px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Pricing models</span>
+        <h2 class={style({ base: { maxWidth: "760px", margin: "0 0 30px", fontSize: "32px", lineHeight: "1.2", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>The work stays the same. The commercial model adapts to certainty, pace and project horizon.</h2>
+        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "1fr" }, mobile: {} }, undefined)}>
+          <ContentCard eyebrow="Defined scope" title="Fixed Price" description="A clear budget for a stable scope, usually defined after Discovery & Strategy." itemOne="Known deliverables" itemTwo="Defined timeline" itemThree="Milestone invoicing" />
+          <ContentCard eyebrow="Ongoing evolution" title="Retainer" description="A long-term product partnership for systems that need to evolve over several months." itemOne="Monthly roadmap" itemTwo="Flexible priorities" itemThree="Embedded support" />
+          <ContentCard eyebrow="Most product projects" title="Mixed Model" description="Start with a fixed Discovery sprint, then choose a fixed build or an ongoing retainer." itemOne="Lower initial risk" itemTwo="Better scope quality" itemThree="Flexible next step" badge="Recommended" featured={true} />
+        </div>
+      </section>
+
+      <section id="ui-kit" class={style({ base: { paddingTop: "88px" }, tablet: {}, mobile: {} }, undefined, { label: "AI based UI Kit" })}>
+        <span class={style({ base: { display: "block", marginBottom: "10px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Product foundation</span>
+        <h2 class={style({ base: { maxWidth: "820px", margin: "0 0 16px", fontSize: "32px", lineHeight: "1.2", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>Do not spend the first weeks rebuilding the same interface basics.</h2>
+        <p class={style({ base: { maxWidth: "760px", margin: "0 0 30px", color: "var(--gray-600)", fontSize: "15px", lineHeight: "1.65" }, tablet: {}, mobile: {} }, undefined)}>Start with a documented UI foundation in Figma and React, then adapt the visual language, product flows and component set to your context.</p>
+        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }, mobile: {} }, undefined)}>
+          <ContentCard eyebrow="Figma" title="Design foundation" description="Tokens, components, variants and states ready for customization." itemOne="Variables" itemTwo="Components" itemThree="States" />
+          <ContentCard eyebrow="React" title="Code foundation" description="Reusable components prepared for product-specific extension." itemOne="Component APIs" itemTwo="Tokens" itemThree="Examples" />
+          <ContentCard eyebrow="UX" title="Pattern foundation" description="Common flows and reusable decision patterns beyond visual styling." itemOne="Navigation" itemTwo="Forms" itemThree="Data patterns" />
+          <ContentCard eyebrow="AI" title="Context foundation" description="Documentation explaining when, why and how to use the system." itemOne="Markdown specs" itemTwo="Usage rules" itemThree="Agent context" featured={true} />
+        </div>
+      </section>
+
+      <Callout
+        eyebrow="Not sure which path fits?"
+        title="Start with a smaller Discovery sprint and define the system before committing to the full build."
+        action="Discuss the product"
+        href={{ href: "/contact" }}
+      />
+    </div>
   </SiteShell>
 </BaseLayout>

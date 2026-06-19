@@ -1,0 +1,51 @@
+---
+import { resolveProps, style } from "meno-astro";
+import { Link } from "meno-astro/components";
+
+const __props = resolveProps(Astro, {
+  year: { type: "string", default: "2026" },
+  title: { type: "string", default: "Project title" },
+  description: { type: "string", default: "Project summary." },
+  scope: { type: "string", default: "Product design" },
+  industry: { type: "string", default: "SaaS" },
+  link: { type: "link", default: { href: "#" } }
+});
+const { year, title, description, scope, industry, link, class: className } = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<article
+  class={style(
+    {
+      base: {
+        minHeight: "112px",
+        display: "grid",
+        gridTemplateColumns: "80px minmax(240px, 1.4fr) minmax(180px, 0.8fr) auto auto",
+        gap: "24px",
+        alignItems: "center",
+        borderTop: "1px solid var(--gray-200)"
+      },
+      tablet: { gridTemplateColumns: "60px 1fr auto" },
+      mobile: {}
+    },
+    __props,
+    { root: true, label: "Project row" }
+  )}
+>
+  <span class={style({ base: { color: "var(--gray-500)", fontSize: "12px" }, tablet: {}, mobile: {} }, __props)}>{year}</span>
+  <div class={style({ base: {}, tablet: {}, mobile: {} }, __props)}>
+    <h3 class={style({ base: { margin: "0 0 6px", fontSize: "17px", fontWeight: "600" }, tablet: {}, mobile: {} }, __props)}>{title}</h3>
+    <p class={style({ base: { margin: "0", color: "var(--gray-500)", fontSize: "12px", lineHeight: "1.5" }, tablet: {}, mobile: {} }, __props)}>{description}</p>
+  </div>
+  <span class={style({ base: { color: "var(--gray-600)", fontSize: "12px" }, tablet: { display: "none" }, mobile: {} }, __props)}>{scope}</span>
+  <span
+    class={style(
+      { base: { padding: "6px 9px", backgroundColor: "var(--gray-100)", color: "var(--gray-700)", fontSize: "10px", fontWeight: "600" }, tablet: {}, mobile: {} },
+      __props
+    )}
+  >
+    {industry}
+  </span>
+  <Link href={link} class={style({ base: { color: "var(--blue-700)", fontSize: "18px", textDecoration: "none" }, tablet: {}, mobile: {} }, __props)}>↗</Link>
+</article>

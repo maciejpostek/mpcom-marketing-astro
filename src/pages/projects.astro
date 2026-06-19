@@ -1,51 +1,58 @@
 ---
-import { ExternalLink } from "@lucide/astro";
+import { style } from "meno-astro";
 import { BaseLayout } from "meno-astro/components";
-import PageHeader from "../components/PageHeader.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import Callout from "../components/Callout.astro";
+import PageHero from "../components/PageHero.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import ProofCard from "../components/ProofCard.astro";
 import SiteShell from "../components/SiteShell.astro";
-import { projects } from "../data/content";
+import "../styles/theme.css";
 
-const caseStudies = projects.filter((project) => project.type === "case-study");
-const archive = projects.filter((project) => project.type === "project");
 const meta = {
   title: "Projects — MPCOM",
-  description:
-    "Selected interface systems, product projects and the path toward design engineering."
+  description: "Selected interface systems, product projects and the path toward design engineering."
 };
 ---
 
 <BaseLayout meta={meta}>
-  <SiteShell>
-  <div class="page">
-    <PageHeader
-      eyebrow="Projects"
-      title="System work, product interfaces and the path that led here."
-      description="Featured cases explain the thinking. The archive shows the broader body of delivered work."
-    />
+  <SiteShell projectsActive={true}>
+    <div class={style({ base: { width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 48px 72px" }, tablet: { padding: "0 32px 56px" }, mobile: {} }, undefined, { label: "Projects page" })}>
+      <PageHero
+        eyebrow="Projects"
+        title="System work, product interfaces and the path that led here."
+        description="Featured cases explain the thinking. The archive shows the broader body of delivered work."
+      />
 
-    <section class="featured-grid projects-featured">
-      {caseStudies.map((project) => <ProjectCard project={project} />)}
-    </section>
+      <section class={style({ base: { paddingTop: "64px" }, tablet: {}, mobile: {} }, undefined, { label: "Featured cases" })}>
+        <div class={style({ base: { marginBottom: "28px", display: "flex", justifyContent: "space-between", alignItems: "end", gap: "20px" }, tablet: {}, mobile: {} }, undefined)}>
+          <div>
+            <span class={style({ base: { display: "block", marginBottom: "8px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Featured cases</span>
+            <h2 class={style({ base: { margin: "0", fontSize: "30px", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>Current proof assets</h2>
+          </div>
+          <span class={style({ base: { color: "var(--gray-500)", fontSize: "11px" }, tablet: {}, mobile: {} }, undefined)}>Systems thinking in practice</span>
+        </div>
+        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "1fr" }, mobile: {} }, undefined)}>
+          <ProofCard image="/images/dashboard-shell.png" imageAlt="Early MPCOM dashboard shell sketch" eyebrow="Case study" year="2026" title="MPCOM Client Project System" description="A portfolio that becomes a working project interface: proposal, timeline, context and client workspace in one system." scope="Product strategy · UX architecture · React prototype" />
+          <ProofCard image="/images/process-timeline.png" imageAlt="Current MPCOM process timeline" eyebrow="Case study" year="2025–2026" title="Interactive Project Timeline" description="A project methodology translated into a timeline that works as sales content, proposal and live status view." scope="Process design · Information architecture · UI system" />
+        </div>
+      </section>
 
-    <section class="project-archive">
-      <div class="proof-section__header">
-        <span class="metric-label">Project archive</span><span>{archive.length} selected projects</span>
-      </div>
-      {
-        archive.map((project) => (
-          <article class="archive-row">
-            <span class="archive-row__year">{project.date}</span>
-            <div><h3>{project.title}</h3><p>{project.summary}</p></div>
-            <span>{project.scope}</span>
-            <span class="badge">{project.industry}</span>
-            <a class="icon-button" href={project.liveUrl ?? "#"} title={`Open ${project.title}`}>
-              <ExternalLink size={16} />
-            </a>
-          </article>
-        ))
-      }
-    </section>
-  </div>
+      <section class={style({ base: { paddingTop: "80px" }, tablet: {}, mobile: {} }, undefined, { label: "Project archive" })}>
+        <div class={style({ base: { paddingBottom: "18px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--gray-200)" }, tablet: {}, mobile: {} }, undefined)}>
+          <span class={style({ base: { color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Project archive</span>
+          <span class={style({ base: { color: "var(--gray-500)", fontSize: "11px" }, tablet: {}, mobile: {} }, undefined)}>3 selected projects</span>
+        </div>
+        <ProjectRow year="2025" title="Nowodvorski Web System" description="A reusable web system designed for continuous content development." scope="UI system · Website design · Webflow" industry="Manufacturing" link={{ href: "#" }} />
+        <ProjectRow year="2024" title="NASK Digital Experience" description="A structured digital interface for a complex institutional content set." scope="Web design · Component system" industry="Cybersecurity" link={{ href: "#" }} />
+        <ProjectRow year="2025" title="Fintech Analytics Dashboard" description="A dense analytics interface organized around reusable decision patterns." scope="UX/UI · Dashboard interface" industry="Fintech" link={{ href: "#" }} />
+      </section>
+
+      <Callout
+        eyebrow="The next case should be a real system"
+        title="The strongest proof will come from a product that needs design, code and context to work as one."
+        action="Discuss a pilot"
+        href={{ href: "/contact" }}
+      />
+    </div>
   </SiteShell>
 </BaseLayout>

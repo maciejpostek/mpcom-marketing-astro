@@ -41,7 +41,9 @@ round-trippable source of truth.
 - `variables.json` defines reusable layout, typography and motion values.
 - `enums.json` defines option sets used by editable component props.
 - `src/styles/theme.css` exposes the same values to the rendered website.
-- `src/styles/global.css` contains component and layout styling.
+- Component and layout styling lives in Meno `style()` calls.
+- `src/styles/theme.css` is limited to shared tokens, font faces and global
+  document foundations.
 
 When tokens change, update the JSON source and `theme.css` together until this
 project gains an automated token-generation step.
@@ -57,8 +59,33 @@ npm run build
 ```
 
 `npm run meno:check` verifies the required files, JSON configuration, Meno
-runtime integration and every page/component with the actual Meno dialect
-parser.
+runtime integration and every page/component through a full
+`parse -> emit -> parse` round trip. It also rejects raw class attributes and
+Meno conflict-copy filenames such as `process 2.astro`.
+
+## Local Meno Workflow
+
+Meno uses its own internal `staging` and `production` branches. Do not connect
+that history directly to GitHub. Treat this repository as the canonical source
+and use file-level synchronization:
+
+```bash
+npm run meno:push
+npm run meno:pull
+```
+
+The default editor path is
+`/Users/maciejpostek/Documents/Meno/local/mpcom-marketing-astro`. Override it
+with `MENO_PROJECT_PATH` when another Meno project copy is active.
+
+After exporting from Meno:
+
+```bash
+npm run meno:pull
+git diff
+npm run meno:check
+npm run build
+```
 
 ## GitHub Import
 

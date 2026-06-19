@@ -1,10 +1,12 @@
 ---
-import { ArrowRight } from "@lucide/astro";
+import { style } from "meno-astro";
 import { BaseLayout } from "meno-astro/components";
-import PageHeader from "../components/PageHeader.astro";
+import Callout from "../components/Callout.astro";
+import ContentCard from "../components/ContentCard.astro";
+import PageHero from "../components/PageHero.astro";
 import SiteShell from "../components/SiteShell.astro";
-import Timeline from "../components/Timeline.astro";
-import { stages } from "../data/content";
+import TimelineStage from "../components/TimelineStage.astro";
+import "../styles/theme.css";
 
 const meta = {
   title: "Process — MPCOM",
@@ -13,36 +15,123 @@ const meta = {
 ---
 
 <BaseLayout meta={meta}>
-  <SiteShell>
-  <div class="page page--wide">
-    <PageHeader
-      eyebrow="Process knowledge base"
-      title="One reference process, configured around the real product problem."
-      description="Explore each stage, its purpose, outputs and dependencies. The same model will later power individual client projects."
+  <SiteShell processActive={true}>
+    <div
+      class={style(
+        {
+          base: { width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 48px 72px", overflowX: "hidden" },
+          tablet: { padding: "0 32px 56px" },
+          mobile: {}
+        },
+        undefined,
+        { label: "Process page" }
+      )}
     >
-      <a class="button button--primary" href="/contact">
-        Request your timeline
-        <ArrowRight size={15} />
-      </a>
-    </PageHeader>
-    <Timeline stages={stages} />
-    <div class="process-principles">
-      <div>
-        <span class="metric-label">Principle 01</span>
-        <strong>Context before execution</strong>
-        <p>Discovery reduces the risk of solving the wrong problem beautifully.</p>
-      </div>
-      <div>
-        <span class="metric-label">Principle 02</span>
-        <strong>Validate before polishing</strong>
-        <p>Flows and architecture are tested before the system becomes visually precise.</p>
-      </div>
-      <div>
-        <span class="metric-label">Principle 03</span>
-        <strong>Document the decisions</strong>
-        <p>A system is useful only when people and AI can understand how to extend it.</p>
-      </div>
+      <PageHero
+        eyebrow="Process knowledge base"
+        title="One reference process, configured around the real product problem."
+        description="Explore each stage, its purpose, outputs and dependencies. The same model will later power individual client projects."
+        action="Request your timeline"
+        link={{ href: "/contact" }}
+      />
+
+      <section
+        class={style(
+          { base: { padding: "56px 0 0" }, tablet: {}, mobile: {} },
+          undefined,
+          { label: "Reference timeline" }
+        )}
+      >
+        <div
+          class={style(
+            {
+              base: {
+                padding: "0 0 22px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "end",
+                gap: "24px"
+              },
+              tablet: {},
+              mobile: {}
+            },
+            undefined
+          )}
+        >
+          <div>
+            <span class={style({ base: { display: "block", marginBottom: "8px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Reference project timeline</span>
+            <h2 class={style({ base: { margin: "0", fontSize: "28px", lineHeight: "1.2", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>Ideal system build</h2>
+          </div>
+          <span class={style({ base: { color: "var(--gray-500)", fontSize: "12px" }, tablet: {}, mobile: {} }, undefined)}>8 stages · configured per project</span>
+        </div>
+        <div
+          class={style(
+            {
+              base: {
+                overflowX: "auto",
+                border: "1px solid var(--gray-200)",
+                backgroundColor: "#ffffff"
+              },
+              tablet: {},
+              mobile: {}
+            },
+            undefined
+          )}
+        >
+          <TimelineStage number="1.0" title="Discovery & Audit" description="Map the product, files and system friction." output="Audit · scope · context" timing="Week 1" placement="one" span="one" active={true} />
+          <TimelineStage number="2.0" title="System Strategy" description="Define architecture, principles and priorities." output="Strategy · roadmap" timing="Week 2" placement="two" span="one" />
+          <TimelineStage number="3.0" title="Product Flows" description="Align navigation and critical user journeys." output="IA · wireframes" timing="Weeks 2–3" placement="two" span="two" />
+          <TimelineStage number="4.0" title="Interface System Design" description="Design reusable foundations, states and views." output="Figma system" timing="Weeks 4–5" placement="four" span="two" />
+          <TimelineStage number="5.0" title="Front-end Design System" description="Build reusable components and technical rules." output="React · tokens" timing="Weeks 5–6" placement="five" span="two" />
+          <TimelineStage number="6.0" title="Documentation & Storybook" description="Create the shared source of truth." output="Stories · specs" timing="Week 6" placement="six" span="one" />
+          <TimelineStage number="7.0" title="AI Context & Governance" description="Document patterns and change workflows." output="Context · governance" timing="Week 7" placement="seven" span="one" />
+          <TimelineStage number="8.0" title="Website System" description="Extend the product language into the public site." output="Astro · content model" timing="Weeks 7–8" placement="seven" span="two" />
+        </div>
+        <div
+          class={style(
+            {
+              base: {
+                display: "grid",
+                gridTemplateColumns: "repeat(8, minmax(118px, 1fr))",
+                border: "1px solid var(--gray-200)",
+                borderTop: "0"
+              },
+              tablet: {},
+              mobile: {}
+            },
+            undefined
+          )}
+        >
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 1</span>
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 2</span>
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 3</span>
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 4</span>
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 5</span>
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 6</span>
+          <span class={style({ base: { padding: "12px", borderRight: "1px solid var(--gray-200)", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 7</span>
+          <span class={style({ base: { padding: "12px", color: "var(--gray-500)", fontSize: "10px", textAlign: "center" }, tablet: {}, mobile: {} }, undefined)}>Week 8</span>
+        </div>
+      </section>
+
+      <section class={style({ base: { paddingTop: "72px" }, tablet: {}, mobile: {} }, undefined, { label: "Process principles" })}>
+        <div class={style({ base: { marginBottom: "28px" }, tablet: {}, mobile: {} }, undefined)}>
+          <span class={style({ base: { display: "block", marginBottom: "9px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Operating principles</span>
+          <h2 class={style({ base: { maxWidth: "720px", margin: "0", fontSize: "32px", lineHeight: "1.2", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>The process reduces uncertainty before it increases production.</h2>
+        </div>
+        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "1fr" }, mobile: {} }, undefined)}>
+          <ContentCard eyebrow="Principle 01" title="Context before execution" description="Discovery reduces the risk of solving the wrong problem beautifully." itemOne="Product audit" itemTwo="Shared vocabulary" itemThree="Scope recommendation" />
+          <ContentCard eyebrow="Principle 02" title="Validate before polishing" description="Flows and architecture are tested before the system becomes visually precise." itemOne="Information architecture" itemTwo="Clickable prototype" itemThree="Flow validation" />
+          <ContentCard eyebrow="Principle 03" title="Document the decisions" description="A system is useful only when people and AI can understand how to extend it." itemOne="Markdown context" itemTwo="Usage rules" itemThree="Governance process" />
+        </div>
+      </section>
+
+      <Callout
+        eyebrow="Start with context"
+        title="Before estimating the complete system, define what actually needs to be built."
+        action="Start with Discovery"
+        href={{ href: "/contact" }}
+        portrait={true}
+      />
     </div>
-  </div>
   </SiteShell>
 </BaseLayout>

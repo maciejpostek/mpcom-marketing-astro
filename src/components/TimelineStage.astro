@@ -1,0 +1,129 @@
+---
+import { resolveProps, style } from "meno-astro";
+import { Link } from "meno-astro/components";
+
+const __props = resolveProps(Astro, {
+  number: { type: "string", default: "1.0" },
+  title: { type: "string", default: "Discovery & Audit" },
+  description: { type: "string", default: "Understand the product and define the real scope." },
+  output: { type: "string", default: "Audit and scope" },
+  timing: { type: "string", default: "Week 1" },
+  placement: {
+    type: "select",
+    default: "one",
+    options: ["one", "two", "three", "four", "five", "six", "seven", "eight"]
+  },
+  span: { type: "select", default: "one", options: ["one", "two"] },
+  active: { type: "boolean", default: false }
+});
+const {
+  number,
+  title,
+  description,
+  output,
+  timing,
+  placement,
+  span,
+  active,
+  class: className,
+} = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<div
+  class={style(
+    {
+      base: {
+        display: "grid",
+        gridTemplateColumns: "repeat(8, minmax(118px, 1fr))",
+        minWidth: "980px",
+        borderTop: "1px solid var(--gray-200)"
+      },
+      tablet: {},
+      mobile: {}
+    },
+    __props,
+    { root: true, label: "Timeline row" }
+  )}
+>
+  <Link
+    href="/contact"
+    class={style(
+      {
+        base: {
+          gridColumnStart: {
+            _mapping: true,
+            prop: "placement",
+            values: { one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8" }
+          },
+          gridColumnEnd: {
+            _mapping: true,
+            prop: "span",
+            values: { one: "span 1", two: "span 2" }
+          },
+          margin: "10px 6px",
+          padding: "18px",
+          display: "grid",
+          gridTemplateColumns: "auto 1fr auto",
+          gap: "14px",
+          alignItems: "start",
+          border: "1px solid",
+          borderColor: {
+            _mapping: true,
+            prop: "active",
+            values: { true: "var(--blue-600)", false: "var(--gray-200)" }
+          },
+          backgroundColor: {
+            _mapping: true,
+            prop: "active",
+            values: { true: "var(--blue-600)", false: "var(--gray-50)" }
+          },
+          color: {
+            _mapping: true,
+            prop: "active",
+            values: { true: "#ffffff", false: "var(--gray-900)" }
+          },
+          textDecoration: "none"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props,
+      { label: "Stage" }
+    )}
+  >
+    <span class={style({ base: { fontSize: "11px", fontWeight: "600" }, tablet: {}, mobile: {} }, __props)}>
+      {number}
+    </span>
+    <div class={style({ base: {}, tablet: {}, mobile: {} }, __props)}>
+      <strong
+        class={style(
+          { base: { display: "block", marginBottom: "7px", fontSize: "14px", fontWeight: "600" }, tablet: {}, mobile: {} },
+          __props
+        )}
+      >
+        {title}
+      </strong>
+      <p
+        class={style(
+          { base: { margin: "0", fontSize: "11px", lineHeight: "1.45", opacity: "0.76" }, tablet: {}, mobile: {} },
+          __props
+        )}
+      >
+        {description}
+      </p>
+      <span
+        class={style(
+          { base: { display: "block", marginTop: "14px", fontSize: "10px", fontWeight: "600", opacity: "0.84" }, tablet: {}, mobile: {} },
+          __props
+        )}
+      >
+        {output}
+      </span>
+    </div>
+    <span class={style({ base: { fontSize: "10px", whiteSpace: "nowrap", opacity: "0.72" }, tablet: {}, mobile: {} }, __props)}>
+      {timing}
+    </span>
+  </Link>
+</div>

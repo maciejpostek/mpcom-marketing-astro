@@ -1,0 +1,158 @@
+---
+import { resolveProps, style } from "meno-astro";
+
+const __props = resolveProps(Astro, {
+  number: { type: "string", default: "01" },
+  code: { type: "string", default: "UI" },
+  title: { type: "string", default: "System layer" },
+  description: { type: "string", default: "Description of the system layer." },
+  itemOne: { type: "string", default: "First capability" },
+  itemTwo: { type: "string", default: "Second capability" },
+  itemThree: { type: "string", default: "Third capability" }
+});
+const {
+  number,
+  code,
+  title,
+  description,
+  itemOne,
+  itemTwo,
+  itemThree,
+  class: className,
+} = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<article
+  class={style(
+    {
+      base: {
+        minHeight: "330px",
+        padding: "24px",
+        display: "flex",
+        flexDirection: "column",
+        border: "1px solid var(--gray-200)",
+        backgroundColor: "var(--gray-50)"
+      },
+      tablet: { minHeight: "auto" },
+      mobile: {}
+    },
+    __props,
+    { root: true, label: "Framework card" }
+  )}
+>
+  <div
+    class={style(
+      {
+        base: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "52px"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    <span
+      class={style(
+        {
+          base: {
+            width: "34px",
+            height: "34px",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "4px",
+            backgroundColor: "var(--blue-600)",
+            color: "#ffffff",
+            fontSize: "11px",
+            fontWeight: "600"
+          },
+          tablet: {},
+          mobile: {}
+        },
+        __props
+      )}
+    >
+      {code}
+    </span>
+    <small
+      class={style(
+        {
+          base: { color: "var(--gray-400)", fontSize: "11px" },
+          tablet: {},
+          mobile: {}
+        },
+        __props
+      )}
+    >
+      {number}
+    </small>
+  </div>
+  <h3
+    class={style(
+      {
+        base: {
+          margin: "0 0 12px",
+          color: "var(--gray-950)",
+          fontSize: "20px",
+          lineHeight: "1.25",
+          fontWeight: "500"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    {title}
+  </h3>
+  <p
+    class={style(
+      {
+        base: {
+          margin: "0 0 28px",
+          color: "var(--gray-500)",
+          fontSize: "14px",
+          lineHeight: "1.55"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    {description}
+  </p>
+  <ul
+    class={style(
+      {
+        base: {
+          margin: "auto 0 0",
+          padding: "0",
+          display: "flex",
+          flexDirection: "column",
+          gap: "9px",
+          listStyle: "none"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    <li class={style({ base: { color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+      {itemOne}
+    </li>
+    <li class={style({ base: { color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+      {itemTwo}
+    </li>
+    <li class={style({ base: { color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+      {itemThree}
+    </li>
+  </ul>
+</article>

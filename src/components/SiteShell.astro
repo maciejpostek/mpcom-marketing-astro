@@ -1,209 +1,381 @@
 ---
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "../styles/theme.css";
-import "../styles/global.css";
-import { resolveProps } from "meno-astro";
-import Sidebar from "../components/Sidebar.astro";
-import TopBar from "../components/TopBar.astro";
-import StageDrawer from "../components/StageDrawer.astro";
-import ProjectDrawer from "../components/ProjectDrawer.astro";
-import { projects, stages } from "../data/content";
+import { resolveProps, style } from "meno-astro";
+import { Link } from "meno-astro/components";
+import ActionButton from "./ActionButton.astro";
+import NavItem from "./NavItem.astro";
 
-const __props = resolveProps(Astro, {});
-const activePath = Astro.url.pathname;
+const __props = resolveProps(Astro, {
+  aboutActive: { type: "boolean", default: false },
+  processActive: { type: "boolean", default: false },
+  servicesActive: { type: "boolean", default: false },
+  clientsActive: { type: "boolean", default: false },
+  projectsActive: { type: "boolean", default: false },
+  contactActive: { type: "boolean", default: false }
+});
+const {
+  aboutActive,
+  processActive,
+  servicesActive,
+  clientsActive,
+  projectsActive,
+  contactActive,
+  class: className,
+} = __props;
 ---
 
-<script is:inline>
-  const storedTheme = localStorage.getItem("mpcom-theme");
-  const initialTheme =
-    storedTheme === "dark" || storedTheme === "light" ? storedTheme : "light";
-  document.documentElement.dataset.theme = initialTheme;
-  document.documentElement.setAttribute("theme", initialTheme);
-</script>
+<div
+  class={style(
+    {
+      base: {
+        minHeight: "100vh",
+        display: "grid",
+        gridTemplateColumns: "236px minmax(0, 1fr)",
+        backgroundColor: "var(--white)",
+        color: "var(--gray-900)",
+        fontFamily: "\"Inter\", Arial, sans-serif"
+      },
+      tablet: { gridTemplateColumns: "196px minmax(0, 1fr)" },
+      mobile: { display: "block" }
+    },
+    __props,
+    { root: true, label: "MPCOM application shell" }
+  )}
+>
+  <aside
+    class={style(
+      {
+        base: {
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          borderRight: "1px solid var(--gray-200)",
+          backgroundColor: "var(--white)"
+        },
+        tablet: {},
+        mobile: { display: "none" }
+      },
+      __props,
+      { label: "Sidebar" }
+    )}
+  >
+    <Link
+      href="/"
+      class={style(
+        {
+          base: {
+            minHeight: "64px",
+            padding: "0 24px",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            borderBottom: "1px solid var(--gray-200)",
+            color: "var(--gray-950)",
+            fontSize: "13px",
+            fontWeight: "600",
+            textDecoration: "none"
+          },
+          tablet: { padding: "0 18px" },
+          mobile: {}
+        },
+        __props
+      )}
+      aria-label="MPCOM home"
+    >
+      <span
+        class={style(
+          {
+            base: {
+              width: "28px",
+              height: "18px",
+              display: "flex",
+              alignItems: "flex-end",
+              gap: "2px"
+            },
+            tablet: {},
+            mobile: {}
+          },
+          __props
+        )}
+      >
+        <i class={style({ base: { width: "8px", height: "4px", display: "block", backgroundColor: "var(--gray-950)" }, tablet: {}, mobile: {} }, __props)} />
+        <i class={style({ base: { width: "8px", height: "8px", display: "block", backgroundColor: "var(--gray-950)" }, tablet: {}, mobile: {} }, __props)} />
+        <i class={style({ base: { width: "8px", height: "12px", display: "block", backgroundColor: "var(--gray-950)" }, tablet: {}, mobile: {} }, __props)} />
+      </span>
+      <span>MPCOM</span>
+    </Link>
 
-<div class="app">
-  <Sidebar activePath={activePath} />
-  <div class="app__workspace">
-    <TopBar />
-    <main class="main">
+    <nav
+      class={style(
+        {
+          base: {
+            padding: "30px 16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "2px"
+          },
+          tablet: { padding: "26px 12px" },
+          mobile: {}
+        },
+        __props,
+        { label: "Public navigation" }
+      )}
+      aria-label="Public navigation"
+    >
+      <span
+        class={style(
+          {
+            base: {
+              margin: "0 10px 10px",
+              color: "var(--gray-500)",
+              fontSize: "10px",
+              fontWeight: "600",
+              textTransform: "uppercase"
+            },
+            tablet: {},
+            mobile: {}
+          },
+          __props
+        )}
+      >
+        Explore
+      </span>
+      <NavItem text="About" link={{ href: "/" }} active={aboutActive} />
+      <NavItem text="Process" link={{ href: "/process" }} active={processActive} />
+      <NavItem text="Services" link={{ href: "/services" }} active={servicesActive} />
+      <NavItem text="Clients" link={{ href: "/clients" }} active={clientsActive} />
+      <NavItem text="Projects" link={{ href: "/projects" }} active={projectsActive} />
+      <NavItem text="Contact" link={{ href: "/contact" }} active={contactActive} />
+    </nav>
+
+    <Link
+      href="/contact"
+      class={style(
+        {
+          base: {
+            marginTop: "auto",
+            padding: "18px 16px",
+            display: "grid",
+            gridTemplateColumns: "38px minmax(0, 1fr) 18px",
+            gap: "10px",
+            alignItems: "center",
+            borderTop: "1px solid var(--gray-200)",
+            color: "var(--gray-900)",
+            textDecoration: "none"
+          },
+          tablet: { gridTemplateColumns: "34px minmax(0, 1fr)" },
+          mobile: {}
+        },
+        __props,
+        {
+          interactive: [
+            {
+              name: "hover",
+              prefix: "",
+              postfix: ":hover",
+              style: { base: { backgroundColor: "var(--gray-50)" } }
+            }
+          ]
+        }
+      )}
+    >
+      <img
+        class={style(
+          {
+            base: {
+              width: "38px",
+              height: "38px",
+              display: "block",
+              borderRadius: "50%",
+              objectFit: "cover"
+            },
+            tablet: { width: "34px", height: "34px" },
+            mobile: {}
+          },
+          __props
+        )}
+        src="/images/maciej-portrait.jpg"
+        alt="Maciej Postek"
+      />
+      <span>
+        <strong
+          class={style(
+            {
+              base: {
+                display: "block",
+                fontSize: "11px",
+                fontWeight: "500"
+              },
+              tablet: {},
+              mobile: {}
+            },
+            __props
+          )}
+        >
+          Maciej Postek
+        </strong>
+        <small
+          class={style(
+            {
+              base: {
+                marginTop: "4px",
+                display: "block",
+                color: "var(--gray-500)",
+                fontSize: "9px"
+              },
+              tablet: {},
+              mobile: {}
+            },
+            __props
+          )}
+        >
+          Design Engineer
+        </small>
+      </span>
+      <span
+        class={style(
+          {
+            base: { color: "var(--gray-400)", fontSize: "13px" },
+            tablet: { display: "none" },
+            mobile: {}
+          },
+          __props
+        )}
+      >
+        {"->"}
+      </span>
+    </Link>
+  </aside>
+
+  <div class={style({ base: { minWidth: "0" }, tablet: {}, mobile: {} }, __props)}>
+    <header
+      class={style(
+        {
+          base: {
+            minHeight: "64px",
+            padding: "0 28px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "24px",
+            borderBottom: "1px solid var(--gray-200)",
+            backgroundColor: "var(--white)"
+          },
+          tablet: { padding: "0 22px" },
+          mobile: { minHeight: "58px", padding: "0 18px" }
+        },
+        __props,
+        { label: "Top bar" }
+      )}
+    >
+      <div
+        class={style(
+          {
+            base: {
+              display: "flex",
+              alignItems: "center",
+              gap: "18px",
+              color: "var(--gray-600)",
+              fontSize: "11px"
+            },
+            tablet: {},
+            mobile: {}
+          },
+          __props
+        )}
+      >
+        <span
+          class={style(
+            {
+              base: { display: "inline-flex", alignItems: "center", gap: "8px" },
+              tablet: {},
+              mobile: {}
+            },
+            __props
+          )}
+        >
+          <i
+            class={style(
+              {
+                base: {
+                  width: "7px",
+                  height: "7px",
+                  display: "block",
+                  borderRadius: "50%",
+                  backgroundColor: "var(--green-600)"
+                },
+                tablet: {},
+                mobile: {}
+              },
+              __props
+            )}
+          />
+          Available for Q4
+        </span>
+        <span class={style({ base: { color: "var(--gray-400)" }, tablet: {}, mobile: { display: "none" } }, __props)}>
+          Warsaw · GMT+2
+        </span>
+      </div>
+      <div
+        class={style(
+          {
+            base: { display: "flex", alignItems: "center", gap: "14px" },
+            tablet: {},
+            mobile: {}
+          },
+          __props
+        )}
+      >
+        <span
+          class={style(
+            {
+              base: { color: "var(--gray-500)", fontSize: "10px" },
+              tablet: { display: "none" },
+              mobile: {}
+            },
+            __props
+          )}
+        >
+          Always open to talk
+        </span>
+        <ActionButton text="Contact" link={{ href: "/contact" }} variant="primary" />
+      </div>
+    </header>
+    <main
+      class={style(
+        {
+          base: {
+            width: "100%",
+            maxWidth: "var(--page-max)",
+            margin: "0 auto",
+            padding: "0 var(--page-inset)"
+          },
+          tablet: { padding: "0 32px" },
+          mobile: { padding: "0 18px" }
+        },
+        __props,
+        { label: "Main content" }
+      )}
+    >
       <slot />
     </main>
   </div>
-  <StageDrawer stages={stages} />
-  <ProjectDrawer projects={projects} />
 </div>
 
-<script>
-      const root = document.documentElement;
-      const themeToggle = document.querySelector("[data-theme-toggle]");
-      themeToggle?.addEventListener("click", () => {
-        const next = root.dataset.theme === "dark" ? "light" : "dark";
-        root.dataset.theme = next;
-        root.setAttribute("theme", next);
-        localStorage.setItem("mpcom-theme", next);
-      });
+<style is:global>
+  * {
+    box-sizing: border-box;
+  }
 
-      const updateClocks = () => {
-        const now = new Date();
-        const warsaw = new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Europe/Warsaw",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit"
-        }).format(now);
-        const zone =
-          new Intl.DateTimeFormat("en", {
-            timeZone: "Europe/Warsaw",
-            timeZoneName: "short"
-          })
-            .formatToParts(now)
-            .find((part) => part.type === "timeZoneName")?.value ?? "Europe/Warsaw";
-        const local = new Intl.DateTimeFormat("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit"
-        }).format(now);
-        document.querySelectorAll("[data-warsaw-time]").forEach((element) => {
-          element.textContent = warsaw;
-        });
-        document.querySelectorAll("[data-warsaw-zone]").forEach((element) => {
-          element.textContent = zone;
-        });
-        document.querySelectorAll("[data-local-time]").forEach((element) => {
-          element.textContent = local;
-        });
-      };
-      updateClocks();
-      window.setInterval(updateClocks, 1000);
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--white);
+  }
 
-      const stageDrawer = document.querySelector<HTMLElement>("[data-stage-drawer]");
-      const stageContent = document.querySelector<HTMLElement>("[data-stage-content]");
-      const stageCategory = document.querySelector<HTMLElement>("[data-stage-category]");
-      const stageCounter = document.querySelector<HTMLElement>("[data-stage-counter]");
-      const stageTemplates = Array.from(
-        document.querySelectorAll<HTMLTemplateElement>("[data-stage-template]")
-      );
-      let activeStageIndex = 0;
-
-      const openStage = (id: string | null) => {
-        const index = stageTemplates.findIndex(
-          (template) => template.getAttribute("data-stage-template") === id
-        );
-        if (index < 0 || !stageDrawer || !stageContent) return;
-        activeStageIndex = index;
-        const template = stageTemplates[index];
-        stageContent.replaceChildren(template.content.cloneNode(true));
-        if (stageCategory) {
-          stageCategory.textContent =
-            template.getAttribute("data-stage-category-value") ?? "Process stage";
-        }
-        if (stageCounter) stageCounter.textContent = `${index + 1} of ${stageTemplates.length}`;
-        stageDrawer.hidden = false;
-        document.body.classList.add("has-overlay");
-      };
-
-      const closeStage = () => {
-        if (!stageDrawer) return;
-        stageDrawer.hidden = true;
-        document.body.classList.remove("has-overlay");
-      };
-
-      document.querySelectorAll("[data-open-stage]").forEach((button) => {
-        button.addEventListener("click", () => openStage(button.getAttribute("data-open-stage")));
-      });
-      document.querySelectorAll("[data-close-drawer]").forEach((button) => {
-        button.addEventListener("click", closeStage);
-      });
-      document.querySelector("[data-stage-previous]")?.addEventListener("click", () => {
-        if (stageTemplates.length === 0) return;
-        activeStageIndex =
-          (activeStageIndex - 1 + stageTemplates.length) % stageTemplates.length;
-        openStage(stageTemplates[activeStageIndex].getAttribute("data-stage-template"));
-      });
-      document.querySelector("[data-stage-next]")?.addEventListener("click", () => {
-        if (stageTemplates.length === 0) return;
-        activeStageIndex = (activeStageIndex + 1) % stageTemplates.length;
-        openStage(stageTemplates[activeStageIndex].getAttribute("data-stage-template"));
-      });
-
-      const caseDrawer = document.querySelector<HTMLElement>("[data-case-drawer]");
-      const caseContent = document.querySelector<HTMLElement>("[data-case-content]");
-      const caseTemplates = Array.from(
-        document.querySelectorAll<HTMLTemplateElement>("[data-case-template]")
-      );
-
-      const openCase = (slug: string, updateUrl = true) => {
-        const template = caseTemplates.find(
-          (item) => item.getAttribute("data-case-template") === slug
-        );
-        if (!template || !caseDrawer || !caseContent) return;
-        caseContent.replaceChildren(template.content.cloneNode(true));
-        caseDrawer.hidden = false;
-        document.body.classList.add("has-overlay");
-        if (updateUrl) {
-          const url = new URL(window.location.href);
-          url.searchParams.set("case", slug);
-          history.replaceState({}, "", url);
-        }
-      };
-
-      const closeCase = () => {
-        if (!caseDrawer) return;
-        caseDrawer.hidden = true;
-        document.body.classList.remove("has-overlay");
-        const url = new URL(window.location.href);
-        url.searchParams.delete("case");
-        history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
-      };
-
-      document.querySelectorAll("[data-open-case]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const slug = button.getAttribute("data-open-case");
-          if (slug) openCase(slug);
-        });
-      });
-      document.querySelectorAll("[data-close-case]").forEach((button) => {
-        button.addEventListener("click", closeCase);
-      });
-      document.querySelector("[data-copy-case-link]")?.addEventListener("click", async () => {
-        await navigator.clipboard?.writeText(window.location.href);
-      });
-
-      const initialCase = new URLSearchParams(window.location.search).get("case");
-      if (initialCase) openCase(initialCase, false);
-
-      document.querySelectorAll("[data-service-tab]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const target = button.getAttribute("data-service-tab");
-          document.querySelectorAll("[data-service-tab]").forEach((tab) => {
-            tab.classList.toggle("is-active", tab === button);
-          });
-          document.querySelectorAll<HTMLElement>("[data-service-panel]").forEach((panel) => {
-            panel.hidden = panel.getAttribute("data-service-panel") !== target;
-          });
-        });
-      });
-
-      const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
-      contactForm?.addEventListener("submit", (event) => {
-        event.preventDefault();
-        contactForm.hidden = true;
-        const success = document.querySelector<HTMLElement>("[data-contact-success]");
-        if (success) success.hidden = false;
-      });
-      document.querySelector("[data-reset-contact]")?.addEventListener("click", () => {
-        if (contactForm) contactForm.hidden = false;
-        const success = document.querySelector<HTMLElement>("[data-contact-success]");
-        if (success) success.hidden = true;
-      });
-      document.querySelector("[data-copy-email]")?.addEventListener("click", async (event) => {
-        await navigator.clipboard?.writeText("hello@maciejpostek.com");
-        const target = event.currentTarget as HTMLElement | null;
-        const label = target?.querySelector("[data-copy-label]");
-        if (label) label.textContent = "E-mail copied";
-        window.setTimeout(() => {
-          if (label) label.textContent = "hello@maciejpostek.com";
-        }, 1600);
-      });
-</script>
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+</style>

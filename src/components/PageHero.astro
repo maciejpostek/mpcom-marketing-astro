@@ -1,0 +1,119 @@
+---
+import { resolveProps, style } from "meno-astro";
+import ActionButton from "./ActionButton.astro";
+
+const __props = resolveProps(Astro, {
+  eyebrow: { type: "string", default: "Section" },
+  title: { type: "string", default: "Page title" },
+  description: { type: "string", default: "Supporting description." },
+  action: { type: "string", default: "" },
+  link: { type: "link", default: { href: "/contact" } }
+});
+const { eyebrow, title, description, action, link, class: className } = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<header
+  class={style(
+    {
+      base: {
+        padding: "72px 0 48px",
+        display: "grid",
+        gridTemplateColumns: "minmax(0, 1.4fr) minmax(280px, 0.6fr)",
+        gap: "64px",
+        alignItems: "end",
+        borderBottom: "1px solid var(--gray-200)"
+      },
+      tablet: { gridTemplateColumns: "1fr", gap: "28px", paddingTop: "52px" },
+      mobile: {}
+    },
+    __props,
+    { root: true, label: "Page hero" }
+  )}
+>
+  <div class={style({ base: {}, tablet: {}, mobile: {} }, __props)}>
+    <span
+      class={style(
+        {
+          base: {
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
+            marginBottom: "22px",
+            color: "var(--blue-700)",
+            fontSize: "12px",
+            fontWeight: "600",
+            textTransform: "uppercase"
+          },
+          tablet: {},
+          mobile: {}
+        },
+        __props,
+        { label: "Eyebrow" }
+      )}
+    >
+      <span
+        class={style(
+          {
+            base: { width: "20px", height: "2px", backgroundColor: "var(--blue-600)" },
+            tablet: {},
+            mobile: {}
+          },
+          __props
+        )}
+      ></span>
+      {eyebrow}
+    </span>
+    <h1
+      class={style(
+        {
+          base: {
+            maxWidth: "900px",
+            margin: "0",
+            color: "var(--gray-950)",
+            fontSize: "48px",
+            lineHeight: "1.08",
+            fontWeight: "500"
+          },
+          tablet: { fontSize: "40px" },
+          mobile: {}
+        },
+        __props,
+        { label: "Title" }
+      )}
+    >
+      {title}
+    </h1>
+  </div>
+  <div
+    class={style(
+      {
+        base: { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "22px" },
+        tablet: {},
+        mobile: {}
+      },
+      __props,
+      { label: "Support" }
+    )}
+  >
+    <p
+      class={style(
+        {
+          base: {
+            margin: "0",
+            color: "var(--gray-600)",
+            fontSize: "16px",
+            lineHeight: "1.65"
+          },
+          tablet: {},
+          mobile: {}
+        },
+        __props
+      )}
+    >
+      {description}
+    </p>
+    {action && <ActionButton text={action} link={link} variant="primary" />}
+  </div>
+</header>

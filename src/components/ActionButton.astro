@@ -1,0 +1,107 @@
+---
+import { resolveProps, style } from "meno-astro";
+import { Link } from "meno-astro/components";
+
+const __props = resolveProps(Astro, {
+  text: { type: "string", default: "Action" },
+  link: { type: "link", default: { href: "#" } },
+  variant: {
+    type: "select",
+    default: "primary",
+    options: ["primary", "secondary", "text"]
+  }
+});
+const { text, link, variant, class: className } = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<Link
+  href={link}
+  class={style(
+    {
+      base: {
+        minHeight: {
+          _mapping: true,
+          prop: "variant",
+          values: { primary: "40px", secondary: "40px", text: "auto" }
+        },
+        padding: {
+          _mapping: true,
+          prop: "variant",
+          values: { primary: "0 16px", secondary: "0 16px", text: "0" }
+        },
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "10px",
+        border: "1px solid",
+        borderColor: {
+          _mapping: true,
+          prop: "variant",
+          values: {
+            primary: "var(--blue-600)",
+            secondary: "var(--gray-300)",
+            text: "transparent"
+          }
+        },
+        borderRadius: {
+          _mapping: true,
+          prop: "variant",
+          values: { primary: "4px", secondary: "4px", text: "0" }
+        },
+        backgroundColor: {
+          _mapping: true,
+          prop: "variant",
+          values: {
+            primary: "var(--blue-600)",
+            secondary: "transparent",
+            text: "transparent"
+          }
+        },
+        color: {
+          _mapping: true,
+          prop: "variant",
+          values: {
+            primary: "#ffffff",
+            secondary: "var(--gray-900)",
+            text: "var(--blue-700)"
+          }
+        },
+        fontSize: "13px",
+        fontWeight: "500",
+        textDecoration: "none",
+        whiteSpace: "nowrap",
+        transition: "opacity 180ms ease-out"
+      },
+      tablet: {},
+      mobile: {}
+    },
+    __props,
+    {
+      root: true,
+      interactive: [
+        {
+          name: "hover",
+          prefix: "",
+          postfix: ":hover",
+          style: { base: { opacity: "0.78" } }
+        }
+      ]
+    }
+  )}
+>
+  <span>{text}</span>
+  <span
+    class={style(
+      {
+        base: { fontSize: "14px", lineHeight: "1" },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    {"->"}
+  </span>
+</Link>

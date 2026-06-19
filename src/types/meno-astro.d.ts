@@ -15,7 +15,10 @@ declare module "meno-astro" {
   export function resolveProps<T extends Record<string, MenoPropDefinition>>(
     astro: unknown,
     definitions: T
-  ): Record<keyof T, any>;
+  ): Record<keyof T, any> & {
+    class?: string;
+    __menoStyle?: unknown;
+  };
 
   export function style(...values: unknown[]): string;
   export function inlineStyle(...values: unknown[]): string;

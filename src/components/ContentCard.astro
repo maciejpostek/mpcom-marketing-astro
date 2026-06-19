@@ -1,0 +1,179 @@
+---
+import { resolveProps, style } from "meno-astro";
+
+const __props = resolveProps(Astro, {
+  eyebrow: { type: "string", default: "Category" },
+  title: { type: "string", default: "Card title" },
+  description: { type: "string", default: "Card description." },
+  itemOne: { type: "string", default: "First capability" },
+  itemTwo: { type: "string", default: "Second capability" },
+  itemThree: { type: "string", default: "Third capability" },
+  itemFour: { type: "string", default: "" },
+  badge: { type: "string", default: "" },
+  featured: { type: "boolean", default: false }
+});
+const {
+  eyebrow,
+  title,
+  description,
+  itemOne,
+  itemTwo,
+  itemThree,
+  itemFour,
+  badge,
+  featured,
+  class: className,
+} = __props;
+
+const __meno = { acceptsStyles: true };
+---
+
+<article
+  class={style(
+    {
+      base: {
+        minHeight: "300px",
+        padding: "28px",
+        display: "flex",
+        flexDirection: "column",
+        border: "1px solid",
+        borderColor: {
+          _mapping: true,
+          prop: "featured",
+          values: { true: "var(--blue-500)", false: "var(--gray-200)" }
+        },
+        backgroundColor: {
+          _mapping: true,
+          prop: "featured",
+          values: { true: "var(--blue-50)", false: "var(--gray-50)" }
+        }
+      },
+      tablet: {},
+      mobile: {}
+    },
+    __props,
+    { root: true, label: "Content card" }
+  )}
+>
+  <div
+    class={style(
+      {
+        base: {
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "16px",
+          marginBottom: "38px"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    <span
+      class={style(
+        {
+          base: {
+            color: "var(--gray-500)",
+            fontSize: "11px",
+            fontWeight: "600",
+            textTransform: "uppercase"
+          },
+          tablet: {},
+          mobile: {}
+        },
+        __props
+      )}
+    >
+      {eyebrow}
+    </span>
+    {badge && (
+      <span
+        class={style(
+          {
+            base: {
+              padding: "5px 8px",
+              backgroundColor: "var(--blue-600)",
+              color: "#ffffff",
+              fontSize: "10px",
+              fontWeight: "600",
+              textTransform: "uppercase"
+            },
+            tablet: {},
+            mobile: {}
+          },
+          __props
+        )}
+      >
+        {badge}
+      </span>
+    )}
+  </div>
+  <h2
+    class={style(
+      {
+        base: {
+          margin: "0 0 14px",
+          color: "var(--gray-950)",
+          fontSize: "22px",
+          lineHeight: "1.2",
+          fontWeight: "500"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    {title}
+  </h2>
+  <p
+    class={style(
+      {
+        base: { margin: "0 0 28px", color: "var(--gray-600)", fontSize: "14px", lineHeight: "1.6" },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    {description}
+  </p>
+  <ul
+    class={style(
+      {
+        base: {
+          margin: "auto 0 0",
+          padding: "18px 0 0",
+          display: "grid",
+          gap: "10px",
+          borderTop: "1px solid var(--gray-200)",
+          listStyle: "none"
+        },
+        tablet: {},
+        mobile: {}
+      },
+      __props
+    )}
+  >
+    <li class={style({ base: { display: "flex", alignItems: "center", gap: "10px", color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+      <span class={style({ base: { width: "5px", height: "5px", flex: "0 0 auto", backgroundColor: "var(--blue-600)" }, tablet: {}, mobile: {} }, __props)}></span>
+      {itemOne}
+    </li>
+    <li class={style({ base: { display: "flex", alignItems: "center", gap: "10px", color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+      <span class={style({ base: { width: "5px", height: "5px", flex: "0 0 auto", backgroundColor: "var(--blue-600)" }, tablet: {}, mobile: {} }, __props)}></span>
+      {itemTwo}
+    </li>
+    <li class={style({ base: { display: "flex", alignItems: "center", gap: "10px", color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+      <span class={style({ base: { width: "5px", height: "5px", flex: "0 0 auto", backgroundColor: "var(--blue-600)" }, tablet: {}, mobile: {} }, __props)}></span>
+      {itemThree}
+    </li>
+    {itemFour && (
+      <li class={style({ base: { display: "flex", alignItems: "center", gap: "10px", color: "var(--gray-700)", fontSize: "13px" }, tablet: {}, mobile: {} }, __props)}>
+        <span class={style({ base: { width: "5px", height: "5px", flex: "0 0 auto", backgroundColor: "var(--blue-600)" }, tablet: {}, mobile: {} }, __props)}></span>
+        {itemFour}
+      </li>
+    )}
+  </ul>
+</article>
