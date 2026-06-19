@@ -1,0 +1,25 @@
+{
+  "name": "mpcom-marketing-astro",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@lucide/astro": "1.21.0",
+    "@fontsource/inter": "^5.2.8",
+    "astro": "6.4.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "esbuild": "0.28.1",
+    "yaml": "2.9.0"
+  }
+}

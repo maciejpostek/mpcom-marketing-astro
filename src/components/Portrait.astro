@@ -1,0 +1,14 @@
+---
+type Variant = "avatar" | "hero" | "callout" | "contact";
+
+interface Props {
+  variant?: Variant;
+  title?: string;
+}
+
+const { variant = "avatar", title = "Maciej Postek" } = Astro.props;
+---
+
+<span class={`portrait portrait--${variant}`} title={title}>
+  <img src="/images/maciej-portrait.jpg" alt="Maciej Postek" loading={variant === "hero" ? "eager" : "lazy"} />
+</span>

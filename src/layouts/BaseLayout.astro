@@ -1,0 +1,224 @@
+---
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "../styles/global.css";
+import Sidebar from "../components/Sidebar.astro";
+import TopBar from "../components/TopBar.astro";
+import StageDrawer from "../components/StageDrawer.astro";
+import ProjectDrawer from "../components/ProjectDrawer.astro";
+import { projects, stages } from "../data/content";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "MPCOM builds interface systems connecting product design, front-end components, AI context and governance."
+} = Astro.props;
+const activePath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="canonical" href={new URL(activePath, Astro.site)} />
+    <title>{title}</title>
+    <script is:inline>
+      const storedTheme = localStorage.getItem("mpcom-theme");
+      document.documentElement.dataset.theme =
+        storedTheme === "dark" || storedTheme === "light" ? storedTheme : "light";
+    </script>
+  </head>
+  <body>
+    <div class="app">
+      <Sidebar activePath={activePath} />
+      <div class="app__workspace">
+        <TopBar />
+        <main class="main">
+          <slot />
+        </main>
+      </div>
+      <StageDrawer stages={stages} />
+      <ProjectDrawer projects={projects} />
+    </div>
+
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.querySelector("[data-theme-toggle]");
+      themeToggle?.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        localStorage.setItem("mpcom-theme", next);
+      });
+
+      const updateClocks = () => {
+        const now = new Date();
+        const warsaw = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Warsaw",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        }).format(now);
+        const zone =
+          new Intl.DateTimeFormat("en", {
+            timeZone: "Europe/Warsaw",
+            timeZoneName: "short"
+          })
+            .formatToParts(now)
+            .find((part) => part.type === "timeZoneName")?.value ?? "Europe/Warsaw";
+        const local = new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit"
+        }).format(now);
+        document.querySelectorAll("[data-warsaw-time]").forEach((element) => {
+          element.textContent = warsaw;
+        });
+        document.querySelectorAll("[data-warsaw-zone]").forEach((element) => {
+          element.textContent = zone;
+        });
+        document.querySelectorAll("[data-local-time]").forEach((element) => {
+          element.textContent = local;
+        });
+      };
+      updateClocks();
+      window.setInterval(updateClocks, 1000);
+
+      const stageDrawer = document.querySelector<HTMLElement>("[data-stage-drawer]");
+      const stageContent = document.querySelector<HTMLElement>("[data-stage-content]");
+      const stageCategory = document.querySelector<HTMLElement>("[data-stage-category]");
+      const stageCounter = document.querySelector<HTMLElement>("[data-stage-counter]");
+      const stageTemplates = Array.from(
+        document.querySelectorAll<HTMLTemplateElement>("[data-stage-template]")
+      );
+      let activeStageIndex = 0;
+
+      const openStage = (id: string | null) => {
+        const index = stageTemplates.findIndex(
+          (template) => template.getAttribute("data-stage-template") === id
+        );
+        if (index < 0 || !stageDrawer || !stageContent) return;
+        activeStageIndex = index;
+        const template = stageTemplates[index];
+        stageContent.replaceChildren(template.content.cloneNode(true));
+        if (stageCategory) {
+          stageCategory.textContent =
+            template.getAttribute("data-stage-category-value") ?? "Process stage";
+        }
+        if (stageCounter) stageCounter.textContent = `${index + 1} of ${stageTemplates.length}`;
+        stageDrawer.hidden = false;
+        document.body.classList.add("has-overlay");
+      };
+
+      const closeStage = () => {
+        if (!stageDrawer) return;
+        stageDrawer.hidden = true;
+        document.body.classList.remove("has-overlay");
+      };
+
+      document.querySelectorAll("[data-open-stage]").forEach((button) => {
+        button.addEventListener("click", () => openStage(button.getAttribute("data-open-stage")));
+      });
+      document.querySelectorAll("[data-close-drawer]").forEach((button) => {
+        button.addEventListener("click", closeStage);
+      });
+      document.querySelector("[data-stage-previous]")?.addEventListener("click", () => {
+        if (stageTemplates.length === 0) return;
+        activeStageIndex =
+          (activeStageIndex - 1 + stageTemplates.length) % stageTemplates.length;
+        openStage(stageTemplates[activeStageIndex].getAttribute("data-stage-template"));
+      });
+      document.querySelector("[data-stage-next]")?.addEventListener("click", () => {
+        if (stageTemplates.length === 0) return;
+        activeStageIndex = (activeStageIndex + 1) % stageTemplates.length;
+        openStage(stageTemplates[activeStageIndex].getAttribute("data-stage-template"));
+      });
+
+      const caseDrawer = document.querySelector<HTMLElement>("[data-case-drawer]");
+      const caseContent = document.querySelector<HTMLElement>("[data-case-content]");
+      const caseTemplates = Array.from(
+        document.querySelectorAll<HTMLTemplateElement>("[data-case-template]")
+      );
+
+      const openCase = (slug: string, updateUrl = true) => {
+        const template = caseTemplates.find(
+          (item) => item.getAttribute("data-case-template") === slug
+        );
+        if (!template || !caseDrawer || !caseContent) return;
+        caseContent.replaceChildren(template.content.cloneNode(true));
+        caseDrawer.hidden = false;
+        document.body.classList.add("has-overlay");
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("case", slug);
+          history.replaceState({}, "", url);
+        }
+      };
+
+      const closeCase = () => {
+        if (!caseDrawer) return;
+        caseDrawer.hidden = true;
+        document.body.classList.remove("has-overlay");
+        const url = new URL(window.location.href);
+        url.searchParams.delete("case");
+        history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+      };
+
+      document.querySelectorAll("[data-open-case]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const slug = button.getAttribute("data-open-case");
+          if (slug) openCase(slug);
+        });
+      });
+      document.querySelectorAll("[data-close-case]").forEach((button) => {
+        button.addEventListener("click", closeCase);
+      });
+      document.querySelector("[data-copy-case-link]")?.addEventListener("click", async () => {
+        await navigator.clipboard?.writeText(window.location.href);
+      });
+
+      const initialCase = new URLSearchParams(window.location.search).get("case");
+      if (initialCase) openCase(initialCase, false);
+
+      document.querySelectorAll("[data-service-tab]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.getAttribute("data-service-tab");
+          document.querySelectorAll("[data-service-tab]").forEach((tab) => {
+            tab.classList.toggle("is-active", tab === button);
+          });
+          document.querySelectorAll<HTMLElement>("[data-service-panel]").forEach((panel) => {
+            panel.hidden = panel.getAttribute("data-service-panel") !== target;
+          });
+        });
+      });
+
+      const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
+      contactForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        contactForm.hidden = true;
+        const success = document.querySelector<HTMLElement>("[data-contact-success]");
+        if (success) success.hidden = false;
+      });
+      document.querySelector("[data-reset-contact]")?.addEventListener("click", () => {
+        if (contactForm) contactForm.hidden = false;
+        const success = document.querySelector<HTMLElement>("[data-contact-success]");
+        if (success) success.hidden = true;
+      });
+      document.querySelector("[data-copy-email]")?.addEventListener("click", async (event) => {
+        await navigator.clipboard?.writeText("hello@maciejpostek.com");
+        const target = event.currentTarget as HTMLElement | null;
+        const label = target?.querySelector("[data-copy-label]");
+        if (label) label.textContent = "E-mail copied";
+        window.setTimeout(() => {
+          if (label) label.textContent = "hello@maciejpostek.com";
+        }, 1600);
+      });
+    </script>
+  </body>
+</html>

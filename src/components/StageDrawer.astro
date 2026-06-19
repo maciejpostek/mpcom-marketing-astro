@@ -1,0 +1,94 @@
+---
+import { ArrowLeft, ArrowRight, Check, FileText, X } from "@lucide/astro";
+import type { Stage } from "../data/content";
+import Portrait from "./Portrait.astro";
+
+interface Props {
+  stages: Stage[];
+}
+
+const { stages } = Astro.props;
+---
+
+<div class="drawer-layer" data-stage-drawer hidden>
+  <button class="drawer-backdrop" type="button" data-close-drawer aria-label="Close panel"></button>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-label="Process stage details">
+    <div class="drawer__topbar">
+      <span class="badge" data-stage-category>Process stage</span>
+      <button class="icon-button" type="button" data-close-drawer title="Close panel">
+        <X size={17} />
+      </button>
+    </div>
+    <div class="drawer__content" data-stage-content></div>
+    <div class="drawer__footer">
+      <button type="button" data-stage-previous>
+        <ArrowLeft size={16} />
+        Previous
+      </button>
+      <span data-stage-counter>1 of {stages.length}</span>
+      <button type="button" data-stage-next>
+        Next
+        <ArrowRight size={16} />
+      </button>
+    </div>
+  </aside>
+</div>
+
+{
+  stages.map((stage) => (
+    <template data-stage-template={stage.id} data-stage-category-value={stage.category}>
+      <div class="drawer__title">
+        <span>{stage.number}</span>
+        <h2>{stage.name}</h2>
+        <p>{stage.detailedDescription}</p>
+      </div>
+      <div class="drawer__meta">
+        <div>
+          <span>Estimated effort</span>
+          <strong>{stage.estimatedDays} days</strong>
+        </div>
+        <div>
+          <span>Assignee</span>
+          <span class="assignee-stack">
+            <Portrait variant="avatar" title="Maciej Postek · Design Engineer" />
+            <span class="assignee-stack__label">Maciej Postek</span>
+          </span>
+        </div>
+      </div>
+      <section class="drawer-section">
+        <h3>Substeps</h3>
+        <ol class="number-list">
+          {stage.substeps.map((step) => <li>{step}</li>)}
+        </ol>
+      </section>
+      <section class="drawer-section">
+        <h3>Goals</h3>
+        <ul class="check-list">
+          {stage.goals.map((goal) => (
+            <li>
+              <Check size={14} />
+              {goal}
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="drawer-section">
+        <h3>Activities</h3>
+        <div class="tag-list tag-list--compact">
+          {stage.activities.map((activity) => <span>{activity}</span>)}
+        </div>
+      </section>
+      <section class="drawer-section">
+        <h3>Outputs & deliverables</h3>
+        <div class="output-list">
+          {stage.deliverables.map((deliverable) => (
+            <div>
+              <FileText size={16} />
+              <span>{deliverable}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </template>
+  ))
+}

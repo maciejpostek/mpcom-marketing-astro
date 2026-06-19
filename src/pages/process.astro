@@ -1,0 +1,40 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Timeline from "../components/Timeline.astro";
+import { stages } from "../data/content";
+---
+
+<BaseLayout title="Process — MPCOM">
+  <div class="page page--wide">
+    <PageHeader
+      eyebrow="Process knowledge base"
+      title="One reference process, configured around the real product problem."
+      description="Explore each stage, its purpose, outputs and dependencies. The same model will later power individual client projects."
+    >
+      <a class="button button--primary" href="/contact">
+        Request your timeline
+        <ArrowRight size={15} />
+      </a>
+    </PageHeader>
+    <Timeline stages={stages} />
+    <div class="process-principles">
+      <div>
+        <span class="metric-label">Principle 01</span>
+        <strong>Context before execution</strong>
+        <p>Discovery reduces the risk of solving the wrong problem beautifully.</p>
+      </div>
+      <div>
+        <span class="metric-label">Principle 02</span>
+        <strong>Validate before polishing</strong>
+        <p>Flows and architecture are tested before the system becomes visually precise.</p>
+      </div>
+      <div>
+        <span class="metric-label">Principle 03</span>
+        <strong>Document the decisions</strong>
+        <p>A system is useful only when people and AI can understand how to extend it.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

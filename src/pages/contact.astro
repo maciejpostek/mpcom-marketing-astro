@@ -1,0 +1,90 @@
+---
+import { ArrowLeft, ArrowRight, Check, Copy, ExternalLink, Folder, MapPin, Send } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Portrait from "../components/Portrait.astro";
+---
+
+<BaseLayout title="Contact — MPCOM">
+  <div class="page">
+    <PageHeader
+      eyebrow="Contact"
+      title="Bring the product context. We will start by defining what the system actually needs."
+      description="Book an introductory call or send the current product, files and problem in writing."
+    />
+
+    <div class="contact-layout">
+      <section class="calendar-placeholder">
+        <div class="contact-profile">
+          <Portrait variant="contact" title="Maciej Postek" />
+          <div>
+            <span class="metric-label">Your project partner</span>
+            <strong>Maciej Postek</strong>
+            <p>Warsaw · Product design, systems and front-end</p>
+          </div>
+        </div>
+        <div class="calendar-placeholder__top">
+          <span class="metric-label">Introductory call</span><span>30 min · Google Meet</span>
+        </div>
+        <div class="calendar-month">
+          <div class="calendar-month__header">
+            <button class="icon-button" type="button" title="Previous month"><ArrowLeft size={15} /></button>
+            <strong>July 2026</strong>
+            <button class="icon-button" type="button" title="Next month"><ArrowRight size={15} /></button>
+          </div>
+          <div class="calendar-grid">
+            {["M", "T", "W", "T", "F", "S", "S"].map((day) => <span class="calendar-day-label">{day}</span>)}
+            {
+              Array.from({ length: 35 }).map((_, index) => {
+                const day = index - 1;
+                const available = [7, 9, 14, 16, 21, 23, 28].includes(day);
+                return <button class:list={["calendar-day", { "is-available": available }]} type="button" disabled={day < 1 || day > 31}>{day > 0 && day <= 31 ? day : ""}</button>;
+              })
+            }
+          </div>
+        </div>
+        <p>Calendar integration is represented as a visual placeholder in this MVP.</p>
+      </section>
+
+      <section class="contact-form-panel">
+        <form class="contact-form" data-contact-form>
+          <div class="form-row">
+            <label class="field"><span>First name</span><input name="firstName" placeholder="Alex" /></label>
+            <label class="field"><span>Last name</span><input name="lastName" placeholder="Morgan" /></label>
+          </div>
+          <label class="field"><span>Work e-mail</span><input name="email" type="email" placeholder="alex@company.com" /></label>
+          <label class="field"><span>Company</span><input name="company" placeholder="Company name" /></label>
+          <label class="field"><span>Current product or website</span><input name="website" placeholder="https://" /></label>
+          <label class="field"><span>Project context</span><textarea name="context" placeholder="What are you building, what is changing and where does the current system create friction?"></textarea></label>
+          <label class="file-drop">
+            <Folder size={18} />
+            <span><strong>Attach project context</strong>Brief, audit or product screenshots</span>
+            <input type="file" />
+          </label>
+          <button class="button button--primary button--full" type="submit">
+            Send project context
+            <Send size={15} />
+          </button>
+        </form>
+
+        <div class="form-success" data-contact-success hidden>
+          <span class="success-icon"><Check size={24} /></span>
+          <span class="metric-label">Message received</span>
+          <h2>Thank you. I will review the context before getting back to you.</h2>
+          <p>This is a prototype success state. No information has been sent.</p>
+          <button class="button button--secondary" type="button" data-reset-contact>Send another message</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="contact-details">
+      <div><MapPin size={16} /><span>Warsaw, Poland · Working with EU and US teams</span></div>
+      <button type="button" data-copy-email>
+        <Copy size={16} /><span data-copy-label>hello@maciejpostek.com</span>
+      </button>
+      <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+        <ExternalLink size={15} />LinkedIn
+      </a>
+    </div>
+  </div>
+</BaseLayout>

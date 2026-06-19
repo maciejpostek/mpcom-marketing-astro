@@ -1,0 +1,106 @@
+---
+import { ArrowRight, BookOpen, Braces, Check, PanelsTopLeft, Sparkles } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Callout from "../components/Callout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { pricingModels, servicePackages } from "../data/content";
+---
+
+<BaseLayout title="Services — MPCOM">
+  <div class="page">
+    <PageHeader
+      eyebrow="Services"
+      title="Configure the right engagement without forcing the project into a generic package."
+      description="Packages explain the most common paths. Discovery determines the actual combination of work."
+    />
+
+    <div class="segmented-control" role="tablist" aria-label="Services">
+      <button class="is-active" type="button" data-service-tab="packages">Service Packages</button>
+      <button type="button" data-service-tab="pricing">Pricing Models</button>
+      <button type="button" data-service-tab="ui-kit">AI-based UI Kit</button>
+    </div>
+
+    <div data-service-panel="packages">
+      <div class="service-list">
+        {
+          servicePackages.map((service, index) => (
+            <article class="service-row">
+              <div class="service-row__index">{String(index + 1).padStart(2, "0")}</div>
+              <div class="service-row__content">
+                <span class="metric-label">{service.eyebrow}</span>
+                <h2>{service.name}</h2>
+                <p>{service.description}</p>
+                <div class="tool-row">
+                  {service.tools.map((tool) => (
+                    <span class="tool-badge" title={tool.name}>
+                      <i>{tool.abbr}</i>
+                      {tool.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <ul class="service-row__includes">
+                {service.includes.map((item) => (
+                  <li><Check size={14} />{item}</li>
+                ))}
+              </ul>
+              <a class="icon-button" href="/contact" title={`Discuss ${service.name}`}>
+                <ArrowRight size={17} />
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div data-service-panel="pricing" hidden>
+      <div class="pricing-grid">
+        {
+          pricingModels.map((model, index) => (
+            <article class:list={["pricing-card", { "pricing-card--featured": index === 2 }]}>
+              <div class="pricing-card__top">
+                <span class="metric-label">{model.bestFor}</span>
+                {index === 2 && <span class="badge badge--blue">Recommended</span>}
+              </div>
+              <h2>{model.name}</h2>
+              <p>{model.description}</p>
+              <ul>
+                {model.points.map((point) => <li><Check size={14} />{point}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div data-service-panel="ui-kit" hidden>
+      <div class="ui-kit-layout">
+        <div class="ui-kit-main">
+          <span class="metric-label">Product foundation</span>
+          <h2>Do not spend the first weeks rebuilding the same interface basics.</h2>
+          <p>
+            Start with a documented UI foundation in Figma and React, then adapt the visual
+            language, product flows and component set to your context.
+          </p>
+          <a class="button button--primary" href="/contact">
+            Discuss customization
+            <ArrowRight size={15} />
+          </a>
+        </div>
+        <div class="ui-kit-system">
+          <div class="system-layer"><span><PanelsTopLeft size={17} /></span><div><strong>Figma foundation</strong><p>Tokens, components, variants and states.</p></div></div>
+          <div class="system-layer"><span><Braces size={17} /></span><div><strong>React foundation</strong><p>Reusable components prepared for extension.</p></div></div>
+          <div class="system-layer"><span><BookOpen size={17} /></span><div><strong>UX patterns</strong><p>Common flows and rules beyond visual styling.</p></div></div>
+          <div class="system-layer"><span><Sparkles size={17} /></span><div><strong>AI context</strong><p>Documentation describing when and how to use the system.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <Callout
+      eyebrow="Not sure which path fits?"
+      title="Start with a smaller Discovery sprint and define the system before committing to the full build."
+      action="Discuss the product"
+      href="/contact"
+    />
+  </div>
+</BaseLayout>

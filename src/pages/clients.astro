@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Callout from "../components/Callout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { agencyPartners, clientNames, industries, testimonials } from "../data/content";
+---
+
+<BaseLayout title="Clients & Partners — MPCOM">
+  <div class="page">
+    <PageHeader
+      eyebrow="Clients & partners"
+      title="Direct product work supported by a wider network of agency collaboration."
+      description="Experience across product teams, technology companies, institutions and specialist agencies."
+    />
+
+    <section class="proof-section">
+      <div class="proof-section__header">
+        <span class="metric-label">Selected clients</span><span>{clientNames.length} shown</span>
+      </div>
+      <div class="logo-row">
+        {clientNames.map((name) => <div class="wordmark">{name}</div>)}
+      </div>
+    </section>
+
+    <section class="proof-section">
+      <div class="proof-section__header">
+        <span class="metric-label">Testimonials</span><span>Selected feedback</span>
+      </div>
+      <div class="testimonial-grid">
+        {
+          testimonials.map((testimonial) => (
+            <article class="testimonial">
+              <p>“{testimonial.quote}”</p>
+              <div>
+                <strong>{testimonial.client}</strong>
+                <span>{testimonial.person} · {testimonial.role}</span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="proof-split">
+      <div>
+        <span class="metric-label">Agency partners</span>
+        <div class="partner-list">
+          {
+            agencyPartners.map((partner, index) => (
+              <div>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{partner}</strong>
+                {partner === "Wide Lab" && <span class="badge badge--blue">Current</span>}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div>
+        <span class="metric-label">Industry context</span>
+        <div class="tag-list">{industries.map((industry) => <span>{industry}</span>)}</div>
+        <p class="support-copy">
+          The common thread is not the industry. It is a product that needs clearer interface
+          logic, reusable patterns and a better way to evolve.
+        </p>
+      </div>
+    </section>
+
+    <Callout
+      eyebrow="Build the next proof together"
+      title="Bring the product, current files and the problem. I will help map the right system."
+      action="Start a conversation"
+      href="/contact"
+      portrait
+    />
+  </div>
+</BaseLayout>
