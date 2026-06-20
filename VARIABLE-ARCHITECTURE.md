@@ -297,7 +297,6 @@ text/secondary
 text/tertiary
 text/inverse
 text/accent
-text/disabled
 ```
 
 ### Definicje
@@ -309,7 +308,6 @@ text/disabled
 | `tertiary` | Metadane, placeholdery i treści o najniższej hierarchii. |
 | `inverse` | Tekst umieszczony na powierzchni `inverse` lub ciemnym akcencie. |
 | `accent` | Tekst służący do brandowego wyróżnienia. |
-| `disabled` | Treść elementu niedostępnego. |
 
 ## 4.3 Border
 
@@ -319,7 +317,6 @@ border/default
 border/strong
 border/inverse
 border/accent
-border/disabled
 ```
 
 ### Definicje
@@ -331,7 +328,6 @@ border/disabled
 | `strong` | Wyraźne oddzielenie lub podkreślenie hierarchii. |
 | `inverse` | Border na powierzchniach o odwróconym kontraście. |
 | `accent` | Brandowe wyróżnienie lub zaznaczenie. |
-| `disabled` | Border elementu niedostępnego. |
 
 ## 4.4 Icon
 
@@ -344,10 +340,92 @@ icon/secondary
 icon/tertiary
 icon/inverse
 icon/accent
-icon/disabled
 ```
 
-## 4.5 Accent
+## 4.5 Dlaczego Grupy Nie Mają Identycznych Nazw
+
+Każda grupa ma tę samą **strukturę techniczną**:
+
+```text
+color / property / role
+```
+
+Nie musi jednak mieć identycznego słownika ról, ponieważ każda właściwość
+rozwiązuje inny problem:
+
+- background opisuje rodzaj powierzchni,
+- text i icon opisują hierarchię treści,
+- border opisuje siłę podziału,
+- status opisuje znaczenie komunikatu,
+- state opisuje stan zachowania.
+
+Wymuszenie `primary`, `secondary`, `tertiary` wszędzie daje równą tabelę, ale
+usuwa informację o przeznaczeniu tokena. `background/secondary` nie mówi, czy
+jest kartą, sekcją czy obniżoną powierzchnią. `background/surface` mówi to
+bezpośrednio.
+
+System jest więc regularny gramatycznie, ale używa słownictwa właściwego dla
+każdej domeny.
+
+## 4.6 Pełna Mapa Globalnych Semantics
+
+```text
+color/
+├── background/
+│   ├── canvas
+│   ├── surface
+│   ├── subtle
+│   ├── muted
+│   ├── inverse
+│   └── accent
+│
+├── text/
+│   ├── primary
+│   ├── secondary
+│   ├── tertiary
+│   ├── inverse
+│   └── accent
+│
+├── border/
+│   ├── subtle
+│   ├── default
+│   ├── strong
+│   ├── inverse
+│   └── accent
+│
+├── icon/
+│   ├── primary
+│   ├── secondary
+│   ├── tertiary
+│   ├── inverse
+│   └── accent
+│
+├── status/
+│   ├── success/
+│   │   ├── background
+│   │   ├── border
+│   │   ├── text
+│   │   └── icon
+│   ├── warning/ [background, border, text, icon]
+│   ├── error/   [background, border, text, icon]
+│   └── info/    [background, border, text, icon]
+│
+└── state/
+    ├── disabled/
+    │   ├── background
+    │   ├── border
+    │   ├── text
+    │   └── icon
+    └── focus/
+        ├── ring
+        └── ring-offset
+```
+
+`disabled` nie występuje równolegle jako `text/disabled`,
+`border/disabled` ani `icon/disabled`. Jego jedynym źródłem prawdy jest
+`state/disabled/*`. Zapobiega to dwóm tokenom opisującym tę samą decyzję.
+
+## 4.7 Accent
 
 `accent` opisuje kolor brandowy i wizualne wyróżnienie. Nie oznacza
 automatycznie interakcji.
@@ -576,8 +654,154 @@ button/primary/background/disabled
 button/primary/border/disabled
 button/primary/text/disabled
 
-button/focus-ring
+button/focus/ring
+button/focus/ring-offset
 ```
+
+## 9.1 Button
+
+Button ma warianty określające jego hierarchię:
+
+```text
+button/
+├── primary/
+├── secondary/
+└── tertiary/
+```
+
+Każdy wariant korzysta z tego samego kontraktu właściwości i stanów:
+
+```text
+button/{variant}/
+├── background/
+│   ├── default
+│   ├── hover
+│   ├── pressed
+│   └── disabled
+├── border/
+│   ├── default
+│   ├── hover
+│   ├── pressed
+│   └── disabled
+├── text/
+│   ├── default
+│   ├── hover
+│   ├── pressed
+│   └── disabled
+└── icon/
+    ├── default
+    ├── hover
+    ├── pressed
+    └── disabled
+
+button/focus/
+├── ring
+└── ring-offset
+```
+
+Primary, secondary i tertiary zachowują tę samą strukturę, ale mogą wskazywać
+inne globalne tokeny semantyczne. Przykładowo primary może zmieniać kolor tła
+na hover, podczas gdy tertiary pozostaje transparentny i zmienia tylko tekst.
+
+Nie tworzymy `selected` dla zwykłego buttona, ponieważ button wykonuje akcję,
+ale nie reprezentuje trwałego wyboru. Komponent typu toggle button może
+rozszerzyć kontrakt o `selected`.
+
+## 9.2 Input
+
+Input nie potrzebuje wariantów `primary`, `secondary`, `tertiary`, jeżeli nie
+istnieją one realnie w projekcie. Jego struktura opisuje części kontrolki:
+
+```text
+input/
+├── background/
+│   ├── default
+│   ├── hover
+│   ├── focus
+│   └── disabled
+├── border/
+│   ├── default
+│   ├── hover
+│   ├── focus
+│   ├── invalid
+│   ├── valid
+│   └── disabled
+├── text/
+│   ├── default
+│   └── disabled
+├── placeholder/
+│   ├── default
+│   └── disabled
+├── icon/
+│   ├── default
+│   └── disabled
+├── label/
+│   ├── default
+│   └── disabled
+├── helper/
+│   ├── default
+│   ├── invalid
+│   └── valid
+└── focus/
+    ├── ring
+    └── ring-offset
+```
+
+`invalid` aliasuje status `error`, a `valid` status `success`. Jeżeli
+projekt nie pokazuje pozytywnej walidacji, tokeny `valid` nie powstają.
+
+## 9.3 Tab
+
+Tab reprezentuje trwały wybór, dlatego potrzebuje `selected`, ale nie
+potrzebuje `pressed` jako osobnego stylu, jeżeli projekt go nie wykorzystuje:
+
+```text
+tab/
+├── background/
+│   ├── default
+│   ├── hover
+│   ├── selected
+│   └── disabled
+├── border/
+│   ├── default
+│   ├── hover
+│   ├── selected
+│   └── disabled
+├── text/
+│   ├── default
+│   ├── hover
+│   ├── selected
+│   └── disabled
+├── icon/
+│   ├── default
+│   ├── hover
+│   ├── selected
+│   └── disabled
+└── focus/
+    ├── ring
+    └── ring-offset
+```
+
+## 9.4 Pozostałe Komponenty
+
+Każdy komponent otrzymuje wyłącznie stany zgodne z jego zachowaniem:
+
+| Komponent | Typowe stany |
+| --- | --- |
+| Button | default, hover, pressed, focus, disabled |
+| Toggle button | default, hover, pressed, selected, focus, disabled |
+| Link | default, hover, focus, opcjonalnie visited |
+| Input | default, hover, focus, invalid, valid, disabled |
+| Tab | default, hover, selected, focus, disabled |
+| Checkbox | default, hover, checked, indeterminate, focus, disabled |
+| Tag statyczny | default |
+| Tag interaktywny | default, hover, selected, focus, disabled |
+| Card statyczna | default |
+| Card interaktywna | default, hover, selected, focus, disabled |
+
+Nie przewidujemy jednej ogromnej matrycy stanów kopiowanej do każdego
+komponentu. Przewidujemy kompletny kontrakt dla każdego komponentu zgodny z
+jego rzeczywistą funkcją.
 
 ## Zasada minimalnego zestawu
 
