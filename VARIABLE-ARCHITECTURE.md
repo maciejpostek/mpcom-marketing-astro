@@ -78,6 +78,7 @@ Color primitives przechowują surowe wartości palet. Nie opisują funkcji kolor
 i nie są używane bezpośrednio w komponentach.
 
 ```css
+--color-neutral-0: #ffffff;
 --color-neutral-50: #fafafa;
 --color-neutral-500: #737373;
 --color-neutral-950: #0a0a0a;
@@ -90,16 +91,49 @@ i nie są używane bezpośrednio w komponentach.
 ## Zasady
 
 - Każda paleta ma nazwę opisującą kolor, nie jego funkcję.
-- `50` oznacza najjaśniejszy odcień.
+- `0` jest technicznym końcem skali neutralnej i oznacza czystą biel.
+- `50` oznacza najjaśniejszy stopień właściwej rampy po czystej bieli.
 - `500` jest głównym odcieniem palety.
-- `900` lub `950` oznacza najciemniejszy odcień.
+- `950` oznacza bardzo ciemny szary znajdujący się blisko czerni.
+- Przyjmujemy konwencję:
+  `0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950`.
 - Liczba stopni może różnić się między paletami, jeżeli wynika to z realnej
   potrzeby.
-- Preferujemy jedną pełną paletę `neutral` zamiast osobnych palet `light` i
-  `dark`, jeżeli pozwoli to zachować czytelne przejście jasności.
+- Używamy jednej pełnej palety `neutral` zamiast osobnych palet `light` i
+  `dark`.
 - Palety statusów mogą mieć własne skale, np. `success`, `warning`, `error` i
   `info`.
 - Wartość `transparent` traktujemy jako prymityw techniczny.
+
+## Spójność Pomiędzy Paletami
+
+Numer odcienia ma oznaczać zbliżoną **rolę percepcyjną**, a nie matematycznie
+identyczne nasycenie.
+
+Przykładowo:
+
+- `neutral/500` i `accent/500` powinny mieć zbliżony ciężar wizualny,
+- `50` powinno zawsze działać jako bardzo jasna powierzchnia,
+- `900` i `950` powinny zawsze działać jako bardzo ciemne kolory,
+- ten sam stopień nie musi mieć identycznej wartości nasycenia dla żółtego,
+  niebieskiego i szarego.
+
+Palety budujemy w przestrzeni `OKLCH`, ponieważ pozwala ona kontrolować osobno:
+
+```text
+L — percepcyjną jasność,
+C — chromę, czyli intensywność koloru,
+H — hue, czyli jego odcień.
+```
+
+Wszystkie palety powinny korzystać ze wspólnej rampy jasności `L`. Chroma jest
+dopasowywana do konkretnego hue oraz ograniczeń gamutu. Dzięki temu ten sam
+numer ma podobną hierarchię wizualną, mimo że żółty i niebieski nie mogą mieć
+identycznych parametrów i nadal wyglądać równie dobrze.
+
+Nie generujemy palet poprzez mechaniczne rozjaśnianie i przyciemnianie koloru
+HEX. Najpierw ustalamy wspólną rampę jasności, następnie kalibrujemy chromę i
+sprawdzamy kontrast najważniejszych par semantycznych.
 
 ## Czego primitives nie robią
 
@@ -183,6 +217,31 @@ namespace:
 Same nazwy nie wyjaśniają AI, projektantowi ani developerowi, gdzie token ma
 zostać użyty. Dlatego nie używamy ich jako jedynego opisu powierzchni.
 
+Nie oznacza to całkowitej rezygnacji z tych nazw. Stosujemy model hybrydowy:
+
+- powierzchnie otrzymują nazwy funkcjonalne,
+- tekst może zachować hierarchię `primary`, `secondary`, `tertiary`,
+- warianty komponentów nadal mogą nazywać się `primary`, `secondary`,
+  `tertiary`,
+- każda nazwa hierarchiczna musi występować wewnątrz jednoznacznego namespace.
+
+Przykłady czytelne:
+
+```text
+text/primary
+button/primary/background/default
+button/secondary/text/hover
+```
+
+Przykład nieczytelny:
+
+```text
+color/primary
+```
+
+W ostatnim przypadku AI nie wie, czy jest to kolor marki, główny tekst,
+powierzchnia strony czy wariant przycisku.
+
 Zamiast:
 
 ```text
@@ -214,6 +273,21 @@ background/accent
 | `muted` | Mocniej odseparowana neutralna powierzchnia o niższej hierarchii. |
 | `inverse` | Powierzchnia o odwróconym kontraście wobec canvasu. |
 | `accent` | Powierzchnia wykorzystująca kolor marki do wyróżnienia. |
+
+### Logika warstw na przykładzie
+
+```text
+background/canvas
+└── główne tło strony
+    background/surface
+    └── karta, panel lub sidebar
+        background/subtle
+        └── delikatnie wydzielona grupa wewnątrz komponentu
+```
+
+`muted` służy do powierzchni celowo obniżonej w hierarchii, natomiast `inverse`
+odwraca relację jasności całego fragmentu. Nazwy opisują funkcję powierzchni,
+dlatego nie wymagają znajomości konkretnej palety ani aktualnego theme'u.
 
 ## 4.2 Text
 
@@ -422,6 +496,11 @@ state/disabled/icon
 
 Są wspólne, ponieważ ich znaczenie i wymagania dostępności są systemowe.
 
+`focus` nie otrzymuje globalnego backgroundu i tekstu. Zmiana focusu nie
+powinna usuwać charakteru wariantu komponentu. Globalny jest przede wszystkim
+widoczny ring oraz jego offset. Komponent może dodatkowo aliasować własny
+`border/focus` do globalnego koloru focusu.
+
 ### Definiowane w komponencie
 
 ```text
@@ -596,21 +675,23 @@ Ta struktura jest propozycją do zatwierdzenia przed implementacją.
 - Focus i disabled mają globalne podstawy reużywane przez komponenty.
 - Nie używamy wieloznacznego `active`; rozdzielamy `pressed` i `selected`.
 - Proporcja 60/30/10 jest regułą kompozycyjną, nie nazwą tokenów.
+- Używamy jednej palety neutralnej od `neutral/0` do `neutral/950`.
+- `neutral/0` jest czystą bielą, a `neutral/950` bardzo ciemnym szarym blisko
+  czerni.
+- Palety kolorów będą kalibrowane w `OKLCH` poprzez wspólną rampę jasności.
+- Nie tworzymy na tym etapie globalnej grupy `action` lub `interactive`.
+- Zaczynamy od jednego globalnego zestawu tokenów `disabled`.
+- W kodzie używamy krótkiej nazwy `info`.
+- Statusy systemowe i disabled posiadają kontrakt `background`, `border`,
+  `text`, `icon`.
+- Globalny focus posiada `ring` i `ring-offset`; pozostałe zmiany focusu
+  definiuje komponent.
 
 ---
 
 # 13. Otwarte Decyzje
 
-## 13.1 Neutral primitives
-
-Czy jedna pełna paleta `neutral/50-950` zastępuje dotychczasowe osobne palety
-`light` i `dark`, czy chcesz zachować dwie palety ze względu na większą kontrolę
-nad temperaturą i charakterem obu trybów?
-
-**Rekomendacja:** jedna pełna paleta neutralna jako domyślny model. Osobne
-palety tylko wtedy, gdy dark mode ma mieć świadomie inną temperaturę koloru.
-
-## 13.2 Nazwa powierzchni komponentów
+## 13.1 Nazwy Powierzchni
 
 Czy akceptujemy:
 
@@ -635,48 +716,20 @@ accent
 
 **Rekomendacja:** przyjąć nazwy funkcjonalne. Są bardziej jednoznaczne dla AI.
 
-## 13.3 Globalna grupa `action`
+To jedyna nierozstrzygnięta decyzja architektoniczna w warstwie semantycznych
+kolorów.
 
-Czy chcemy dodać małą grupę:
+## 13.2 Wartości Palet
 
-```text
-action/background
-action/background-hover
-action/text
-action/focus-ring
-```
-
-która stanowiłaby wspólny punkt dla CTA, linków i selected state?
-
-**Rekomendacja na teraz:** nie dodawać. Najpierw zbudować component tokens.
-Wrócić do grupy `action` dopiero wtedy, gdy co najmniej trzy komponenty
-powtarzają dokładnie tę samą logikę.
-
-## 13.4 Disabled state
-
-Czy wszystkie komponenty mają korzystać z jednej globalnej palety disabled,
-czy dopuszczamy dwa poziomy:
-
-```text
-disabled/subtle
-disabled/strong
-```
-
-**Rekomendacja:** zacząć od jednego zestawu. Rozszerzyć tylko po wykazaniu
-problemu kontrastu albo hierarchii.
-
-## 13.5 Nazwa `info`
-
-Czy w kodzie używamy krótszego `info`, czy pełnego `information`?
-
-**Rekomendacja:** `info`, ponieważ jest powszechne i zachowuje krótsze nazwy
-tokenów.
+Konkretna rampa `OKLCH`, wartości chromy i finalne kolory nie są już decyzją o
+architekturze. Zostaną ustalone podczas implementacji i eksploracji wizualnej,
+a następnie sprawdzone pod kątem kontrastu.
 
 ---
 
 # 14. Następny Krok
 
-1. Zatwierdzić lub skorygować decyzje z sekcji 13.
+1. Zatwierdzić lub skorygować nazwy powierzchni z sekcji 13.
 2. Przejść do analizy kolekcji `Sizes - primitives`.
 3. Po przeanalizowaniu wszystkich kolekcji stworzyć finalną mapę tokenów.
 4. Dopiero wtedy rozpocząć implementację CSS.
