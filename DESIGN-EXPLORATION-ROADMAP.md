@@ -20,6 +20,9 @@ Dokument pełni trzy funkcje:
 
 **Aktualny etap:** architektura zmiennych i tokenów.
 
+Źródło prawdy dla bieżących ustaleń:
+[VARIABLE-ARCHITECTURE.md](./VARIABLE-ARCHITECTURE.md).
+
 ---
 
 ## 0. Fundament Techniczny
@@ -40,15 +43,15 @@ Dokument pełni trzy funkcje:
 ## 1. Architektura Zmiennych
 
 - [~] Zebrać screeny i opis dotychczasowego systemu zmiennych z Figmy.
-- [ ] Opisać tekstowo poziomy i zależności tokenów.
-- [ ] Uzgodnić nazewnictwo tokenów.
-- [ ] Ustalić podział na:
+- [~] Opisać tekstowo poziomy i zależności tokenów.
+- [~] Uzgodnić nazewnictwo tokenów.
+- [x] Ustalić podział na:
   - primitive tokens,
   - semantic tokens,
   - component tokens.
-- [ ] Ustalić obsługę light i dark mode.
+- [x] Ustalić obsługę light i dark mode.
 - [ ] Ustalić model breakpointów oraz wartości responsywnych.
-- [ ] Zdefiniować grupy:
+- [~] Zdefiniować grupy:
   - color,
   - typography,
   - spacing,

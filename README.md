@@ -6,6 +6,7 @@ Public marketing layer of MPCOM built with Astro.
 
 - [Product roadmap](./ROADMAP.md)
 - [Design system and visual exploration roadmap](./DESIGN-EXPLORATION-ROADMAP.md)
+- [Variable architecture and design system assumptions](./VARIABLE-ARCHITECTURE.md)
 
 ## Scope
 
