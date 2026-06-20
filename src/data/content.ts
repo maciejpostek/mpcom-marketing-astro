@@ -283,7 +283,7 @@ export const servicePackages: ServicePackage[] = [
     tools: [
       { abbr: "A", name: "Astro" },
       { abbr: "S", name: "Sanity" },
-      { abbr: "M", name: "Meno" }
+      { abbr: "J", name: "JavaScript" }
     ]
   },
   {

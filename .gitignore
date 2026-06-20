@@ -1,6 +1,4 @@
 node_modules/
 dist/
 .astro/
-.meno/
-.wrangler/
 .DS_Store

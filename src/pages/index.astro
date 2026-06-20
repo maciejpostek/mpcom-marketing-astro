@@ -1,345 +1,134 @@
 ---
-import { style } from "meno-astro";
-import { BaseLayout } from "meno-astro/components";
-import ActionButton from "../components/ActionButton.astro";
-import FrameworkCard from "../components/FrameworkCard.astro";
-import ProcessItem from "../components/ProcessItem.astro";
-import ProofCard from "../components/ProofCard.astro";
-import SectionIntro from "../components/SectionIntro.astro";
-import SiteShell from "../components/SiteShell.astro";
-import "../styles/theme.css";
+import { ArrowRight, Braces, PanelsTopLeft, Sparkles } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Callout from "../components/Callout.astro";
+import Portrait from "../components/Portrait.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { projects, stages } from "../data/content";
 
-const meta = {
-  title: "MPCOM — Product systems, designed to evolve",
-  description:
-    "Interface systems connecting product design, front-end components, AI context and governance."
-};
+const featuredProjects = projects.filter((project) => project.type === "case-study").slice(0, 2);
 ---
 
-<BaseLayout meta={meta}>
-  <SiteShell aboutActive={true}>
-    <section
-      class={style({
-        base: {
-          padding: "72px 0 56px",
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1.35fr) minmax(300px, 0.65fr)",
-          gap: "72px",
-          alignItems: "end"
-        },
-        tablet: { gridTemplateColumns: "1fr", gap: "40px", paddingTop: "56px" },
-        mobile: { padding: "40px 0" }
-      })}
-    >
-      <div>
-        <div
-          class={style({
-            base: {
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "24px",
-              color: "var(--gray-600)",
-              fontSize: "12px",
-              fontWeight: "500"
-            },
-            tablet: {},
-            mobile: {}
-          })}
-        >
-          <span
-            class={style({
-              base: {
-                width: "24px",
-                height: "2px",
-                display: "block",
-                backgroundColor: "var(--blue-600)"
-              },
-              tablet: {},
-              mobile: {}
-            })}
-          />
-          <span>Product systems · design + development</span>
+<BaseLayout title="MPCOM — Product systems, designed to evolve">
+  <div class="page">
+    <section class="page-intro about-intro">
+      <div class="about-hero-layout">
+        <div class="about-hero-copy">
+          <div class="eyebrow">
+            <span class="eyebrow__line"></span>
+            Product systems · design + development
+          </div>
+          <h1>
+            Interfaces designed as systems,
+            <span class="text-secondary">ready to evolve with people and AI.</span>
+          </h1>
+          <p class="lead">
+            I help product teams turn fragmented UI into a designed, coded and documented
+            interface ecosystem.
+          </p>
+          <div class="intro-actions">
+            <a class="button button--primary" href="/process">
+              Explore the process
+              <ArrowRight size={15} />
+            </a>
+            <a class="button button--secondary" href="/contact">Discuss a project</a>
+          </div>
         </div>
-        <h1
-          class={style({
-            base: {
-              margin: "0",
-              maxWidth: "780px",
-              color: "var(--gray-950)",
-              fontSize: "var(--display-size)",
-              lineHeight: "1.03",
-              fontWeight: "500"
-            },
-            tablet: { fontSize: "48px" },
-            mobile: { fontSize: "38px" }
-          })}
-        >
-          {"Interfaces designed as systems, "}
-          <span class={style({ base: { color: "var(--gray-400)" }, tablet: {}, mobile: {} })}>
-            ready to evolve with people and AI.
-          </span>
-        </h1>
-        <p
-          class={style({
-            base: {
-              margin: "28px 0 0",
-              maxWidth: "590px",
-              color: "var(--gray-500)",
-              fontSize: "16px",
-              lineHeight: "1.6"
-            },
-            tablet: {},
-            mobile: { fontSize: "15px" }
-          })}
-        >
-          I help product teams turn fragmented UI into a designed, coded and documented
-          interface ecosystem.
-        </p>
-        <div
-          class={style({
-            base: {
-              marginTop: "32px",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "10px"
-            },
-            tablet: {},
-            mobile: {}
-          })}
-        >
-          <ActionButton text="Explore the process" link={{ href: "/process" }} variant="primary" />
-          <ActionButton text="Discuss a project" link={{ href: "/contact" }} variant="secondary" />
-        </div>
-      </div>
-
-      <div>
-        <div
-          class={style({
-            base: {
-              padding: "12px",
-              border: "1px solid var(--gray-200)",
-              backgroundColor: "var(--gray-100)"
-            },
-            tablet: { maxWidth: "420px" },
-            mobile: {}
-          })}
-        >
-          <img
-            class={style({
-              base: {
-                width: "100%",
-                aspectRatio: "4 / 5",
-                display: "block",
-                objectFit: "cover",
-                objectPosition: "center"
-              },
-              tablet: {},
-              mobile: {}
-            })}
-            src="/images/maciej-portrait.jpg"
-            alt="Maciej Postek"
-          />
-        </div>
-        <div
-          class={style({
-            base: {
-              padding: "16px 0 0",
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "20px"
-            },
-            tablet: { maxWidth: "420px" },
-            mobile: {}
-          })}
-        >
-          <span class={style({ base: { color: "var(--gray-500)", fontSize: "11px" }, tablet: {}, mobile: {} })}>
-            Maciej Postek
-          </span>
-          <strong class={style({ base: { color: "var(--gray-900)", fontSize: "11px", fontWeight: "500" }, tablet: {}, mobile: {} })}>
-            Product designer & design systems builder
-          </strong>
+        <div class="about-portrait">
+          <Portrait variant="hero" title="Maciej Postek" />
+          <div class="about-portrait__caption">
+            <span>Maciej Postek</span>
+            <strong>Product designer & design systems builder</strong>
+          </div>
         </div>
       </div>
     </section>
 
-    <section
-      class={style({
-        base: {
-          display: "grid",
-          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-          borderTop: "1px solid var(--gray-200)",
-          borderBottom: "1px solid var(--gray-200)"
-        },
-        tablet: { gridTemplateColumns: "repeat(2, minmax(0, 1fr))" },
-        mobile: { gridTemplateColumns: "1fr" }
-      })}
-    >
-      <div class={style({ base: { padding: "22px 20px 22px 0", borderRight: "1px solid var(--gray-200)" }, tablet: {}, mobile: { paddingLeft: "0", borderRight: "0", borderBottom: "1px solid var(--gray-200)" } })}>
-        <span class={style({ base: { display: "block", marginBottom: "7px", color: "var(--gray-500)", fontSize: "10px" }, tablet: {}, mobile: {} })}>Core focus</span>
-        <strong class={style({ base: { color: "var(--gray-900)", fontSize: "13px", fontWeight: "500" }, tablet: {}, mobile: {} })}>Product UI & design systems</strong>
-      </div>
-      <div class={style({ base: { padding: "22px 20px", borderRight: "1px solid var(--gray-200)" }, tablet: { borderRight: "0" }, mobile: { paddingLeft: "0", borderBottom: "1px solid var(--gray-200)" } })}>
-        <span class={style({ base: { display: "block", marginBottom: "7px", color: "var(--gray-500)", fontSize: "10px" }, tablet: {}, mobile: {} })}>Working layer</span>
-        <strong class={style({ base: { color: "var(--gray-900)", fontSize: "13px", fontWeight: "500" }, tablet: {}, mobile: {} })}>Figma → code → context</strong>
-      </div>
-      <div class={style({ base: { padding: "22px 20px", borderRight: "1px solid var(--gray-200)" }, tablet: { paddingLeft: "0", borderTop: "1px solid var(--gray-200)" }, mobile: { borderRight: "0", borderBottom: "1px solid var(--gray-200)" } })}>
-        <span class={style({ base: { display: "block", marginBottom: "7px", color: "var(--gray-500)", fontSize: "10px" }, tablet: {}, mobile: {} })}>Best fit</span>
-        <strong class={style({ base: { color: "var(--gray-900)", fontSize: "13px", fontWeight: "500" }, tablet: {}, mobile: {} })}>B2B SaaS & dashboards</strong>
-      </div>
-      <div class={style({ base: { padding: "22px 0 22px 20px" }, tablet: { borderTop: "1px solid var(--gray-200)" }, mobile: { paddingLeft: "0" } })}>
-        <span class={style({ base: { display: "block", marginBottom: "7px", color: "var(--gray-500)", fontSize: "10px" }, tablet: {}, mobile: {} })}>Location</span>
-        <strong class={style({ base: { color: "var(--gray-900)", fontSize: "13px", fontWeight: "500" }, tablet: {}, mobile: {} })}>Warsaw · EU / US</strong>
-      </div>
+    <section class="overview-strip">
+      <div><span>Core focus</span><strong>Product UI & design systems</strong></div>
+      <div><span>Working layer</span><strong>Figma → code → context</strong></div>
+      <div><span>Best fit</span><strong>B2B SaaS & dashboards</strong></div>
+      <div><span>Location</span><strong>Warsaw · EU / US</strong></div>
     </section>
 
-    <section class={style({ base: { padding: "72px 0", borderBottom: "1px solid var(--gray-200)" }, tablet: { padding: "58px 0" }, mobile: { padding: "46px 0" } })}>
-      <SectionIntro
+    <section class="section section--bordered">
+      <SectionHeading
         index="01"
         eyebrow="The approach"
         title="A product should not become harder to change every time it grows."
         description="The work connects three layers that are too often separated."
       />
-      <div
-        class={style({
-          base: {
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: "12px"
-          },
-          tablet: { gridTemplateColumns: "1fr" },
-          mobile: {}
-        })}
-      >
-        <FrameworkCard
-          number="01"
-          code="UI"
-          title="Interface System Design"
-          description="Product flows, information architecture, reusable UI and a Figma design system."
-          itemOne="UX & product flows"
-          itemTwo="Foundations"
-          itemThree="Components & states"
-        />
-        <FrameworkCard
-          number="02"
-          code="AI"
-          title="AI Context & Governance"
-          description="Patterns, rules and documentation that keep design, code and AI aligned."
-          itemOne="Markdown specs"
-          itemTwo="Reusable patterns"
-          itemThree="Change processes"
-        />
-        <FrameworkCard
-          number="03"
-          code="FE"
-          title="Front-end Design System"
-          description="Reusable components, technical rules and a source of truth in code."
-          itemOne="React components"
-          itemTwo="Design tokens"
-          itemThree="Storybook"
-        />
+      <div class="three-column-framework">
+        <article class="framework-column">
+          <div class="framework-column__top"><span><PanelsTopLeft size={18} /></span><small>01</small></div>
+          <h3>Interface System Design</h3>
+          <p>Product flows, information architecture, reusable UI and a Figma design system.</p>
+          <ul><li>UX & product flows</li><li>Foundations</li><li>Components & states</li></ul>
+        </article>
+        <article class="framework-column">
+          <div class="framework-column__top"><span><Sparkles size={18} /></span><small>02</small></div>
+          <h3>AI Context & Governance</h3>
+          <p>Patterns, rules and documentation that keep design, code and AI aligned.</p>
+          <ul><li>Markdown specs</li><li>Reusable patterns</li><li>Change processes</li></ul>
+        </article>
+        <article class="framework-column">
+          <div class="framework-column__top"><span><Braces size={18} /></span><small>03</small></div>
+          <h3>Front-end Design System</h3>
+          <p>Reusable components, technical rules and a source of truth in code.</p>
+          <ul><li>React components</li><li>Design tokens</li><li>Storybook</li></ul>
+        </article>
       </div>
     </section>
 
-    <section class={style({ base: { padding: "72px 0", borderBottom: "1px solid var(--gray-200)" }, tablet: { padding: "58px 0" }, mobile: { padding: "46px 0" } })}>
-      <SectionIntro
+    <section class="section section--bordered">
+      <SectionHeading
         index="02"
         eyebrow="Current proof"
         title="The portfolio is becoming the product."
         description="The public system documents the process today and creates a foundation for the future client workspace."
       />
-      <div
-        class={style({
-          base: {
-            display: "grid",
-            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-            gap: "14px"
-          },
-          tablet: { gridTemplateColumns: "1fr" },
-          mobile: {}
-        })}
-      >
-        <ProofCard
-          image="/images/dashboard-shell.png"
-          imageAlt="Early MPCOM dashboard shell sketch"
-          eyebrow="Case study"
-          year="2026"
-          title="MPCOM Client Project System"
-          description="A portfolio that becomes a working project interface: proposal, timeline, context and client workspace in one system."
-          scope="Product strategy · UX architecture · React prototype"
-        />
-        <ProofCard
-          image="/images/process-timeline.png"
-          imageAlt="Current MPCOM process timeline"
-          eyebrow="Case study"
-          year="2025–2026"
-          title="Interactive Project Timeline"
-          description="A project methodology translated into a timeline that works as sales content, proposal and live status view."
-          scope="Process design · Information architecture · UI system"
-        />
+      <div class="featured-grid">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
       </div>
     </section>
 
-    <section class={style({ base: { padding: "72px 0", borderBottom: "1px solid var(--gray-200)" }, tablet: { padding: "58px 0" }, mobile: { padding: "46px 0" } })}>
-      <SectionIntro
+    <section class="section section--bordered compact-process-preview">
+      <SectionHeading
         index="03"
         eyebrow="Reference process"
         title="A clear path from uncertainty to an operating system."
         description="Every engagement is assembled from the same reference process, then adapted to the product."
       />
-      <div class={style({ base: { borderTop: "1px solid var(--gray-200)" }, tablet: {}, mobile: {} })}>
-        <ProcessItem number="1.0" title="Discovery & Audit" link={{ href: "/process" }} active={true} />
-        <ProcessItem number="2.0" title="System Strategy" link={{ href: "/process" }} />
-        <ProcessItem number="3.0" title="Product Flows" link={{ href: "/process" }} />
-        <ProcessItem number="4.0" title="Interface System Design" link={{ href: "/process" }} />
-        <ProcessItem number="5.0" title="Front-end Design System" link={{ href: "/process" }} />
+      <div class="mini-process">
+        {
+          stages.slice(0, 5).map((stage) => (
+            <button
+              class:list={["mini-process__stage", { "mini-process__stage--active": stage.id === "discovery" }]}
+              type="button"
+              data-open-stage={stage.id}
+            >
+              <span>{stage.number}</span>
+              <strong>{stage.name}</strong>
+              <ArrowRight size={14} />
+            </button>
+          ))
+        }
       </div>
-      <div class={style({ base: { marginTop: "24px", display: "flex", justifyContent: "flex-end" }, tablet: {}, mobile: {} })}>
-        <ActionButton text="Open the complete process" link={{ href: "/process" }} variant="text" />
+      <div class="section-footer-action">
+        <a class="text-link" href="/process">
+          Open the complete process
+          <ArrowRight size={15} />
+        </a>
       </div>
     </section>
 
-    <section
-      class={style({
-        base: {
-          margin: "72px 0",
-          minHeight: "280px",
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1.2fr) 280px",
-          border: "1px solid var(--gray-200)",
-          backgroundColor: "var(--gray-50)"
-        },
-        tablet: { gridTemplateColumns: "1fr" },
-        mobile: { margin: "46px 0" }
-      })}
-    >
-      <div class={style({ base: { padding: "40px", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center" }, tablet: {}, mobile: { padding: "28px" } })}>
-        <span class={style({ base: { marginBottom: "18px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} })}>
-          Start with context
-        </span>
-        <h2 class={style({ base: { margin: "0", maxWidth: "720px", color: "var(--gray-950)", fontSize: "34px", lineHeight: "1.15", fontWeight: "500" }, tablet: {}, mobile: { fontSize: "28px" } })}>
-          Before estimating the full system, define what actually needs to be built.
-        </h2>
-        <div class={style({ base: { marginTop: "28px" }, tablet: {}, mobile: {} })}>
-          <ActionButton text="Start with Discovery" link={{ href: "/contact" }} variant="primary" />
-        </div>
-      </div>
-      <img
-        class={style({
-          base: {
-            width: "100%",
-            height: "100%",
-            minHeight: "280px",
-            display: "block",
-            objectFit: "cover",
-            borderLeft: "1px solid var(--gray-200)"
-          },
-          tablet: { height: "320px", borderLeft: "0", borderTop: "1px solid var(--gray-200)" },
-          mobile: {}
-        })}
-        src="/images/maciej-portrait.jpg"
-        alt="Maciej Postek"
-      />
-    </section>
-  </SiteShell>
+    <Callout
+      eyebrow="Start with context"
+      title="Before estimating the full system, define what actually needs to be built."
+      action="Start with Discovery"
+      href="/contact"
+      portrait
+    />
+  </div>
 </BaseLayout>

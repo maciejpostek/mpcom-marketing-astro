@@ -1,0 +1,32 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import type { PortfolioProject } from "../data/content";
+
+interface Props {
+  project: PortfolioProject;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card">
+  <button class="project-card__image" type="button" data-open-case={project.slug} aria-label={`Open ${project.title}`}>
+    <img src={project.image} alt={project.imageAlt} loading="lazy" />
+    <span class="project-card__image-action">
+      View system
+      <ArrowRight size={15} />
+    </span>
+  </button>
+  <div class="project-card__meta">
+    <span class="badge badge--blue">Case Study</span>
+    <span>{project.date}</span>
+  </div>
+  <h3>{project.title}</h3>
+  <p>{project.summary}</p>
+  <div class="project-card__footer">
+    <span>{project.scope}</span>
+    <button class="icon-button" type="button" data-open-case={project.slug} title={`Open ${project.title}`}>
+      <ArrowRight size={16} />
+    </button>
+  </div>
+</article>

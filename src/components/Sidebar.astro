@@ -1,0 +1,53 @@
+---
+import { ChevronRight } from "@lucide/astro";
+import Portrait from "./Portrait.astro";
+
+interface Props {
+  activePath: string;
+}
+
+const { activePath } = Astro.props;
+const navigation = [
+  { href: "/", label: "About" },
+  { href: "/process", label: "Process" },
+  { href: "/services", label: "Services" },
+  { href: "/clients", label: "Clients" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" }
+];
+
+const isCurrent = (href: string) =>
+  href === "/" ? activePath === "/" : activePath.startsWith(href);
+---
+
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="MPCOM home">
+    <span class="brand__mark" aria-hidden="true">
+      <i></i>
+      <i></i>
+      <i></i>
+    </span>
+    <span>MPCOM</span>
+  </a>
+
+  <nav class="sidebar__nav" aria-label="Public navigation">
+    <span class="nav-label">Explore</span>
+    {
+      navigation.map((item) => (
+        <a class:list={["nav-item", { "is-current": isCurrent(item.href) }]} href={item.href}>
+          <span>{item.label}</span>
+          {isCurrent(item.href) && <ChevronRight size={15} />}
+        </a>
+      ))
+    }
+  </nav>
+
+  <a class="sidebar-profile" href="/contact">
+    <Portrait variant="avatar" title="Maciej Postek · Design Engineer" />
+    <span>
+      <strong>Maciej Postek</strong>
+      <small>Design Engineer</small>
+    </span>
+    <ChevronRight size={15} />
+  </a>
+</aside>

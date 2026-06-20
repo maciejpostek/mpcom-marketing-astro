@@ -1,68 +1,77 @@
 ---
-import { style } from "meno-astro";
-import { BaseLayout } from "meno-astro/components";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Callout from "../components/Callout.astro";
-import ContentCard from "../components/ContentCard.astro";
-import PageHero from "../components/PageHero.astro";
-import SiteShell from "../components/SiteShell.astro";
-import TestimonialCard from "../components/TestimonialCard.astro";
-import "../styles/theme.css";
-
-const meta = {
-  title: "Clients & Partners — MPCOM",
-  description: "Selected product work, client feedback and specialist agency collaborations."
-};
+import PageHeader from "../components/PageHeader.astro";
+import { agencyPartners, clientNames, industries, testimonials } from "../data/content";
 ---
 
-<BaseLayout meta={meta}>
-  <SiteShell clientsActive={true}>
-    <div class={style({ base: { width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 48px 72px" }, tablet: { padding: "0 32px 56px" }, mobile: {} }, undefined, { label: "Clients page" })}>
-      <PageHero
-        eyebrow="Clients & partners"
-        title="Direct product work supported by a wider network of agency collaboration."
-        description="Experience across product teams, technology companies, institutions and specialist agencies."
-      />
+<BaseLayout title="Clients & Partners — MPCOM">
+  <div class="page">
+    <PageHeader
+      eyebrow="Clients & partners"
+      title="Direct product work supported by a wider network of agency collaboration."
+      description="Experience across product teams, technology companies, institutions and specialist agencies."
+    />
 
-      <section class={style({ base: { paddingTop: "64px" }, tablet: {}, mobile: {} }, undefined, { label: "Selected clients" })}>
-        <div class={style({ base: { paddingBottom: "18px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--gray-200)" }, tablet: {}, mobile: {} }, undefined)}>
-          <span class={style({ base: { color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Selected clients</span>
-          <span class={style({ base: { color: "var(--gray-500)", fontSize: "11px" }, tablet: {}, mobile: {} }, undefined)}>6 shown</span>
-        </div>
-        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", borderBottom: "1px solid var(--gray-200)" }, tablet: { gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }, mobile: {} }, undefined)}>
-          <div class={style({ base: { minHeight: "112px", display: "grid", placeItems: "center", borderRight: "1px solid var(--gray-200)", fontSize: "18px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>Portola</div>
-          <div class={style({ base: { minHeight: "112px", display: "grid", placeItems: "center", borderRight: "1px solid var(--gray-200)", fontSize: "18px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>Adopt</div>
-          <div class={style({ base: { minHeight: "112px", display: "grid", placeItems: "center", borderRight: "1px solid var(--gray-200)", fontSize: "18px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>Nowodvorski</div>
-          <div class={style({ base: { minHeight: "112px", display: "grid", placeItems: "center", borderRight: "1px solid var(--gray-200)", fontSize: "18px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>NASK</div>
-          <div class={style({ base: { minHeight: "112px", display: "grid", placeItems: "center", borderRight: "1px solid var(--gray-200)", fontSize: "18px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>Wide Lab</div>
-          <div class={style({ base: { minHeight: "112px", display: "grid", placeItems: "center", fontSize: "18px", fontWeight: "600" }, tablet: {}, mobile: {} }, undefined)}>Grafit</div>
-        </div>
-      </section>
+    <section class="proof-section">
+      <div class="proof-section__header">
+        <span class="metric-label">Selected clients</span><span>{clientNames.length} shown</span>
+      </div>
+      <div class="logo-row">
+        {clientNames.map((name) => <div class="wordmark">{name}</div>)}
+      </div>
+    </section>
 
-      <section class={style({ base: { paddingTop: "80px" }, tablet: {}, mobile: {} }, undefined, { label: "Testimonials" })}>
-        <span class={style({ base: { display: "block", marginBottom: "10px", color: "var(--blue-700)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, undefined)}>Selected feedback</span>
-        <h2 class={style({ base: { maxWidth: "720px", margin: "0 0 30px", fontSize: "32px", lineHeight: "1.2", fontWeight: "500" }, tablet: {}, mobile: {} }, undefined)}>The proof is not only a cleaner interface. It is a clearer way to make future decisions.</h2>
-        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "1fr" }, mobile: {} }, undefined)}>
-          <TestimonialCard quote="Maciej brought structure to a project that had grown in every direction. The result was not only a cleaner interface, but a much clearer way to make future decisions." client="Adopt" person="Product lead" role="B2B SaaS" />
-          <TestimonialCard quote="He thinks beyond individual screens. The handoff, components and logic are considered from the beginning, which makes collaboration unusually efficient." client="Grafit" person="Agency partner" role="Digital agency" />
-          <TestimonialCard quote="The new system gave our team a repeatable framework. We stopped solving the same layout and content problems from scratch." client="Nowodvorski" person="Marketing team" role="Manufacturing" />
-          <TestimonialCard quote="Reliable, methodical and comfortable working at the point where design decisions meet technical constraints." client="Design Digital" person="Creative director" role="Agency partner" />
-        </div>
-      </section>
+    <section class="proof-section">
+      <div class="proof-section__header">
+        <span class="metric-label">Testimonials</span><span>Selected feedback</span>
+      </div>
+      <div class="testimonial-grid">
+        {
+          testimonials.map((testimonial) => (
+            <article class="testimonial">
+              <p>“{testimonial.quote}”</p>
+              <div>
+                <strong>{testimonial.client}</strong>
+                <span>{testimonial.person} · {testimonial.role}</span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
 
-      <section class={style({ base: { paddingTop: "80px" }, tablet: {}, mobile: {} }, undefined, { label: "Partners and industries" })}>
-        <div class={style({ base: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "12px" }, tablet: { gridTemplateColumns: "1fr" }, mobile: {} }, undefined)}>
-          <ContentCard eyebrow="Agency partners" title="A network for larger delivery contexts" description="Direct collaboration with specialist design and digital teams." itemOne="Wide Lab · current" itemTwo="Grafit" itemThree="Design Digital" itemFour="Design Me · Actually" featured={true} />
-          <ContentCard eyebrow="Industry context" title="The common thread is product complexity" description="The industry changes. The need for clearer logic, reusable patterns and a better way to evolve remains." itemOne="AI · Fintech · SaaS" itemTwo="Healthcare · Cybersecurity" itemThree="Energy · Technology" />
+    <section class="proof-split">
+      <div>
+        <span class="metric-label">Agency partners</span>
+        <div class="partner-list">
+          {
+            agencyPartners.map((partner, index) => (
+              <div>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{partner}</strong>
+                {partner === "Wide Lab" && <span class="badge badge--blue">Current</span>}
+              </div>
+            ))
+          }
         </div>
-      </section>
+      </div>
+      <div>
+        <span class="metric-label">Industry context</span>
+        <div class="tag-list">{industries.map((industry) => <span>{industry}</span>)}</div>
+        <p class="support-copy">
+          The common thread is not the industry. It is a product that needs clearer interface
+          logic, reusable patterns and a better way to evolve.
+        </p>
+      </div>
+    </section>
 
-      <Callout
-        eyebrow="Build the next proof together"
-        title="Bring the product, current files and the problem. I will help map the right system."
-        action="Start a conversation"
-        href={{ href: "/contact" }}
-        portrait={true}
-      />
-    </div>
-  </SiteShell>
+    <Callout
+      eyebrow="Build the next proof together"
+      title="Bring the product, current files and the problem. I will help map the right system."
+      action="Start a conversation"
+      href="/contact"
+      portrait
+    />
+  </div>
 </BaseLayout>

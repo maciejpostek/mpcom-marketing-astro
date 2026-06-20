@@ -1,36 +1,26 @@
 # MPCOM Marketing Portfolio
 
-The public marketing layer of MPCOM, built with Astro and prepared for visual
-editing in Meno.
-
-## Development
-
-```bash
-npm install
-npm run dev
-```
-
-## Validation
-
-```bash
-npm run meno:check
-npm run build
-```
-
-See [MENO.md](./MENO.md) for the repository structure and compatibility contract
-required by Meno.
+Public marketing layer of MPCOM built with Astro.
 
 ## Scope
 
 - About
-- Process timeline and stage documentation
+- Process and interactive stage documentation
 - Services, pricing models and AI-based UI kit
 - Clients and testimonials
-- Featured proof assets and project archive
+- Projects and shareable case-study drawers
 - Contact
 - Light and dark themes
 
 The authenticated client workspace remains a separate React project planned for phase two.
+
+## Commands
+
+```bash
+npm install
+npm run dev
+npm run build
+```
 
 ## Content
 

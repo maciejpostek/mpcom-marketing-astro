@@ -15,7 +15,7 @@ Included:
 - project portfolio,
 - contact flow,
 - light and dark themes,
-- Meno-compatible Astro structure,
+- component-first Astro architecture,
 - content separated from layout components.
 
 Not included:

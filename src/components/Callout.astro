@@ -1,45 +1,28 @@
 ---
-import { resolveProps, style } from "meno-astro";
-import ActionButton from "./ActionButton.astro";
+import { ArrowRight } from "@lucide/astro";
+import Portrait from "./Portrait.astro";
 
-const __props = resolveProps(Astro, {
-  eyebrow: { type: "string", default: "Start with context" },
-  title: { type: "string", default: "Define what the system actually needs." },
-  action: { type: "string", default: "Start a conversation" },
-  href: { type: "link", default: { href: "/contact" } },
-  portrait: { type: "boolean", default: false }
-});
-const { eyebrow, title, action, href, portrait, class: className } = __props;
+interface Props {
+  eyebrow: string;
+  title: string;
+  action: string;
+  href: string;
+  portrait?: boolean;
+}
 
-const __meno = { acceptsStyles: true };
+const { eyebrow, title, action, href, portrait = false } = Astro.props;
 ---
 
-<section
-  class={style(
-    {
-      base: {
-        marginTop: "64px",
-        padding: "34px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: "32px",
-        backgroundColor: "var(--gray-950)",
-        color: "#ffffff"
-      },
-      tablet: { alignItems: "flex-start", flexDirection: "column" },
-      mobile: {}
-    },
-    __props,
-    { root: true, label: "Callout" }
-  )}
->
-  <div class={style({ base: { display: "flex", alignItems: "center", gap: "18px" }, tablet: {}, mobile: {} }, __props)}>
-    {portrait && <img src="/images/maciej-portrait.jpg" alt="Maciej Postek" class={style({ base: { width: "52px", height: "52px", objectFit: "cover", borderRadius: "50%" }, tablet: {}, mobile: {} }, __props)} />}
-    <div class={style({ base: {}, tablet: {}, mobile: {} }, __props)}>
-      <span class={style({ base: { display: "block", marginBottom: "9px", color: "var(--blue-300)", fontSize: "11px", fontWeight: "600", textTransform: "uppercase" }, tablet: {}, mobile: {} }, __props)}>{eyebrow}</span>
-      <h2 class={style({ base: { maxWidth: "760px", margin: "0", fontSize: "24px", lineHeight: "1.28", fontWeight: "500" }, tablet: {}, mobile: {} }, __props)}>{title}</h2>
+<section class="callout">
+  <div class="callout__content">
+    {portrait && <Portrait variant="callout" title="Maciej Postek" />}
+    <div>
+      <span class="metric-label">{eyebrow}</span>
+      <h2>{title}</h2>
     </div>
   </div>
-  <ActionButton text={action} link={href} variant="primary" />
+  <a class="button button--primary" href={href}>
+    {action}
+    <ArrowRight size={15} />
+  </a>
 </section>
