@@ -1,5 +1,8 @@
 # MPCOM Product Roadmap
 
+Szczegółowy plan budowy design systemu i eksploracji wizualnych:
+[DESIGN-EXPLORATION-ROADMAP.md](./DESIGN-EXPLORATION-ROADMAP.md).
+
 ## Phase 1 - Astro Marketing Portfolio
 
 Goal: launch a polished, public-facing portfolio and service system.
