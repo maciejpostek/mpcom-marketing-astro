@@ -15,9 +15,9 @@ import { pricingModels, servicePackages } from "../data/content";
     />
 
     <div class="segmented-control" role="tablist" aria-label="Services">
-      <button class="is-active" type="button" data-service-tab="packages">Service Packages</button>
-      <button type="button" data-service-tab="pricing">Pricing Models</button>
-      <button type="button" data-service-tab="ui-kit">AI-based UI Kit</button>
+      <button class="is-active" data-component-size="small" type="button" data-service-tab="packages">Service Packages</button>
+      <button data-component-size="small" type="button" data-service-tab="pricing">Pricing Models</button>
+      <button data-component-size="small" type="button" data-service-tab="ui-kit">AI-based UI Kit</button>
     </div>
 
     <div data-service-panel="packages">
@@ -32,7 +32,7 @@ import { pricingModels, servicePackages } from "../data/content";
                 <p>{service.description}</p>
                 <div class="tool-row">
                   {service.tools.map((tool) => (
-                    <span class="tool-badge" title={tool.name}>
+                    <span class="tool-badge" data-component-size="tiny" title={tool.name}>
                       <i>{tool.abbr}</i>
                       {tool.name}
                     </span>
@@ -44,7 +44,7 @@ import { pricingModels, servicePackages } from "../data/content";
                   <li><Check size={14} />{item}</li>
                 ))}
               </ul>
-              <a class="icon-button" href="/contact" title={`Discuss ${service.name}`}>
+              <a class="icon-button" data-component-size="small" href="/contact" title={`Discuss ${service.name}`}>
                 <ArrowRight size={17} />
               </a>
             </article>
@@ -60,7 +60,7 @@ import { pricingModels, servicePackages } from "../data/content";
             <article class:list={["pricing-card", { "pricing-card--featured": index === 2 }]}>
               <div class="pricing-card__top">
                 <span class="metric-label">{model.bestFor}</span>
-                {index === 2 && <span class="badge badge--blue">Recommended</span>}
+                {index === 2 && <span class="badge badge--blue" data-component-size="tiny">Recommended</span>}
               </div>
               <h2>{model.name}</h2>
               <p>{model.description}</p>
@@ -82,7 +82,7 @@ import { pricingModels, servicePackages } from "../data/content";
             Start with a documented UI foundation in Figma and React, then adapt the visual
             language, product flows and component set to your context.
           </p>
-          <a class="button button--primary" href="/contact">
+          <a class="button button--primary" data-component-size="small" href="/contact">
             Discuss customization
             <ArrowRight size={15} />
           </a>

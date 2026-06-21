@@ -1,0 +1,101 @@
+/*
+ * MPCOM semantic text style tokens.
+ */
+
+:root {
+  /* Display
+   * Largest editorial or hero text style.
+   */
+  --text-style-display-font-family: var(--font-family-heading);
+  --text-style-display-font-size: var(--font-size-display);
+  --text-style-display-font-weight: var(--font-weight-emphasis);
+  --text-style-display-line-height: var(--line-height-none);
+  --text-style-display-letter-spacing: var(--letter-spacing-tightest);
+
+  /* Headings
+   * Complete typographic contracts for H1 through H6 roles.
+   */
+  --text-style-heading-h1-font-family: var(--font-family-heading);
+  --text-style-heading-h1-font-size: var(--font-size-h1);
+  --text-style-heading-h1-font-weight: var(--font-weight-emphasis);
+  --text-style-heading-h1-line-height: var(--line-height-tight);
+  --text-style-heading-h1-letter-spacing: var(--letter-spacing-tightest);
+
+  --text-style-heading-h2-font-family: var(--font-family-heading);
+  --text-style-heading-h2-font-size: var(--font-size-h2);
+  --text-style-heading-h2-font-weight: var(--font-weight-emphasis);
+  --text-style-heading-h2-line-height: var(--line-height-tight);
+  --text-style-heading-h2-letter-spacing: var(--letter-spacing-tightest);
+
+  --text-style-heading-h3-font-family: var(--font-family-heading);
+  --text-style-heading-h3-font-size: var(--font-size-h3);
+  --text-style-heading-h3-font-weight: var(--font-weight-emphasis);
+  --text-style-heading-h3-line-height: var(--line-height-tight);
+  --text-style-heading-h3-letter-spacing: var(--letter-spacing-tightest);
+
+  --text-style-heading-h4-font-family: var(--font-family-heading);
+  --text-style-heading-h4-font-size: var(--font-size-h4);
+  --text-style-heading-h4-font-weight: var(--font-weight-emphasis);
+  --text-style-heading-h4-line-height: var(--line-height-compact);
+  --text-style-heading-h4-letter-spacing: var(--letter-spacing-tight);
+
+  --text-style-heading-h5-font-family: var(--font-family-heading);
+  --text-style-heading-h5-font-size: var(--font-size-h5);
+  --text-style-heading-h5-font-weight: var(--font-weight-emphasis);
+  --text-style-heading-h5-line-height: var(--line-height-compact);
+  --text-style-heading-h5-letter-spacing: var(--letter-spacing-tight);
+
+  --text-style-heading-h6-font-family: var(--font-family-heading);
+  --text-style-heading-h6-font-size: var(--font-size-h6);
+  --text-style-heading-h6-font-weight: var(--font-weight-emphasis);
+  --text-style-heading-h6-line-height: var(--line-height-compact);
+  --text-style-heading-h6-letter-spacing: var(--letter-spacing-subtle);
+
+  /* Body
+   * Reading styles from large lead text to compact supporting copy.
+   */
+  --text-style-body-large-font-family: var(--font-family-body);
+  --text-style-body-large-font-size: var(--font-size-body-large);
+  --text-style-body-large-font-weight: var(--font-weight-normal);
+  --text-style-body-large-line-height: var(--line-height-normal);
+  --text-style-body-large-letter-spacing: var(--letter-spacing-subtle);
+
+  --text-style-body-medium-font-family: var(--font-family-body);
+  --text-style-body-medium-font-size: var(--font-size-body-medium);
+  --text-style-body-medium-font-weight: var(--font-weight-normal);
+  --text-style-body-medium-line-height: var(--line-height-normal);
+  --text-style-body-medium-letter-spacing: var(--letter-spacing-subtle);
+
+  --text-style-body-base-font-family: var(--font-family-body);
+  --text-style-body-base-font-size: var(--font-size-body-base);
+  --text-style-body-base-font-weight: var(--font-weight-normal);
+  --text-style-body-base-line-height: var(--line-height-normal);
+  --text-style-body-base-letter-spacing: var(--letter-spacing-subtle);
+
+  --text-style-body-small-font-family: var(--font-family-body);
+  --text-style-body-small-font-size: var(--font-size-body-small);
+  --text-style-body-small-font-weight: var(--font-weight-normal);
+  --text-style-body-small-line-height: var(--line-height-normal);
+  --text-style-body-small-letter-spacing: var(--letter-spacing-default);
+
+  --text-style-body-tiny-font-family: var(--font-family-body);
+  --text-style-body-tiny-font-size: var(--font-size-body-tiny);
+  --text-style-body-tiny-font-weight: var(--font-weight-normal);
+  --text-style-body-tiny-line-height: var(--line-height-normal);
+  --text-style-body-tiny-letter-spacing: var(--letter-spacing-default);
+
+  /* Utility text
+   * Compact emphasized styles for labels and captions.
+   */
+  --text-style-label-font-family: var(--font-family-body);
+  --text-style-label-font-size: var(--font-size-body-small);
+  --text-style-label-font-weight: var(--font-weight-emphasis);
+  --text-style-label-line-height: var(--line-height-compact);
+  --text-style-label-letter-spacing: var(--letter-spacing-default);
+
+  --text-style-caption-font-family: var(--font-family-body);
+  --text-style-caption-font-size: var(--font-size-body-tiny);
+  --text-style-caption-font-weight: var(--font-weight-emphasis);
+  --text-style-caption-line-height: var(--line-height-compact);
+  --text-style-caption-letter-spacing: var(--letter-spacing-subtle);
+}

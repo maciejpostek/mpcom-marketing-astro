@@ -34,7 +34,7 @@ const isCurrent = (href: string) =>
     <span class="nav-label">Explore</span>
     {
       navigation.map((item) => (
-        <a class:list={["nav-item", { "is-current": isCurrent(item.href) }]} href={item.href}>
+        <a class:list={["nav-item", { "is-current": isCurrent(item.href) }]} data-component-size="small" href={item.href}>
           <span>{item.label}</span>
           {isCurrent(item.href) && <ChevronRight size={15} />}
         </a>

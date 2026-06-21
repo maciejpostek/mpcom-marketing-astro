@@ -1,0 +1,109 @@
+/*
+ * MPCOM shared component size profiles.
+ *
+ * Buttons, tabs, inputs, tags and similar compact controls consume the same
+ * local aliases. Component CSS decides which profile sizes it supports.
+ */
+
+:root {
+  /* Tiny profile
+   * Intended for tags, labels, eyebrows and compact metadata controls.
+   */
+  --component-size-tiny-min-height: var(--size-24);
+  --component-size-tiny-padding-inline: var(--size-8);
+  --component-size-tiny-padding-block: var(--size-4);
+  --component-size-tiny-icon-size: var(--size-12);
+  --component-size-tiny-gap: var(--size-4);
+  --component-size-tiny-font-size: var(--font-size-body-tiny);
+  --component-size-tiny-line-height: var(--line-height-none);
+
+  /* Small profile
+   * Intended for compact buttons, tabs and secondary controls.
+   */
+  --component-size-small-min-height: var(--size-40);
+  --component-size-small-padding-inline: var(--size-12);
+  --component-size-small-padding-block: var(--size-8);
+  --component-size-small-icon-size: var(--size-16);
+  --component-size-small-gap: var(--size-6);
+  --component-size-small-font-size: var(--font-size-body-small);
+  --component-size-small-line-height: var(--line-height-none);
+
+  /* Medium profile
+   * Default profile for primary controls and form fields.
+   */
+  --component-size-medium-min-height: var(--size-48);
+  --component-size-medium-padding-inline: var(--size-20);
+  --component-size-medium-padding-block: var(--size-12);
+  --component-size-medium-icon-size: var(--size-20);
+  --component-size-medium-gap: var(--size-8);
+  --component-size-medium-font-size: var(--font-size-body-base);
+  --component-size-medium-line-height: var(--line-height-none);
+
+  /* Large profile
+   * Intended for prominent actions and spacious interface contexts.
+   */
+  --component-size-large-min-height: var(--size-56);
+  --component-size-large-padding-inline: var(--size-24);
+  --component-size-large-padding-block: var(--size-16);
+  --component-size-large-icon-size: var(--size-24);
+  --component-size-large-gap: var(--size-12);
+  --component-size-large-font-size: var(--font-size-body-medium);
+  --component-size-large-line-height: var(--line-height-none);
+}
+
+/* Attribute bridge
+ * The selected profile is exposed through stable local aliases. Components use
+ * these aliases instead of duplicating geometry tokens for each component.
+ */
+[data-component-size="tiny"] {
+  --component-min-height: var(--component-size-tiny-min-height);
+  --component-padding-inline: var(--component-size-tiny-padding-inline);
+  --component-padding-block: var(--component-size-tiny-padding-block);
+  --component-icon-size: var(--component-size-tiny-icon-size);
+  --component-gap: var(--component-size-tiny-gap);
+  --component-font-size: var(--component-size-tiny-font-size);
+  --component-line-height: var(--component-size-tiny-line-height);
+}
+
+[data-component-size="small"] {
+  --component-min-height: var(--component-size-small-min-height);
+  --component-padding-inline: var(--component-size-small-padding-inline);
+  --component-padding-block: var(--component-size-small-padding-block);
+  --component-icon-size: var(--component-size-small-icon-size);
+  --component-gap: var(--component-size-small-gap);
+  --component-font-size: var(--component-size-small-font-size);
+  --component-line-height: var(--component-size-small-line-height);
+}
+
+[data-component-size="medium"] {
+  --component-min-height: var(--component-size-medium-min-height);
+  --component-padding-inline: var(--component-size-medium-padding-inline);
+  --component-padding-block: var(--component-size-medium-padding-block);
+  --component-icon-size: var(--component-size-medium-icon-size);
+  --component-gap: var(--component-size-medium-gap);
+  --component-font-size: var(--component-size-medium-font-size);
+  --component-line-height: var(--component-size-medium-line-height);
+}
+
+[data-component-size="large"] {
+  --component-min-height: var(--component-size-large-min-height);
+  --component-padding-inline: var(--component-size-large-padding-inline);
+  --component-padding-block: var(--component-size-large-padding-block);
+  --component-icon-size: var(--component-size-large-icon-size);
+  --component-gap: var(--component-size-large-gap);
+  --component-font-size: var(--component-size-large-font-size);
+  --component-line-height: var(--component-size-large-line-height);
+}
+
+@media (width < 48rem) {
+  :root {
+    /* Large controls become less spacious on narrow screens while preserving
+     * the same semantic profile and attribute value.
+     */
+    --component-size-large-min-height: var(--size-48);
+    --component-size-large-padding-inline: var(--size-20);
+    --component-size-large-padding-block: var(--size-12);
+    --component-size-large-icon-size: var(--size-20);
+    --component-size-large-gap: var(--size-8);
+  }
+}

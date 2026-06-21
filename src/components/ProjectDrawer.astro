@@ -14,15 +14,15 @@ const caseStudies = projects.filter((project) => project.type === "case-study");
   <button class="drawer-backdrop" type="button" data-close-case aria-label="Close panel"></button>
   <aside class="drawer drawer--case" role="dialog" aria-modal="true" aria-label="Case study details">
     <div class="drawer__topbar">
-      <span class="badge badge--blue">Case Study</span>
-      <button class="icon-button" type="button" data-close-case title="Close panel">
+      <span class="badge badge--blue" data-component-size="tiny">Case Study</span>
+      <button class="icon-button" data-component-size="small" type="button" data-close-case title="Close panel">
         <X size={17} />
       </button>
     </div>
     <div class="drawer__content" data-case-content></div>
     <div class="drawer__footer drawer__footer--case">
       <span>Shareable project context</span>
-      <button type="button" data-copy-case-link>
+      <button type="button" data-component-size="small" data-copy-case-link>
         <Link2 size={15} />
         Copy link
       </button>

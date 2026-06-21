@@ -50,7 +50,7 @@ import { agencyPartners, clientNames, industries, testimonials } from "../data/c
               <div>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{partner}</strong>
-                {partner === "Wide Lab" && <span class="badge badge--blue">Current</span>}
+                {partner === "Wide Lab" && <span class="badge badge--blue" data-component-size="tiny">Current</span>}
               </div>
             ))
           }

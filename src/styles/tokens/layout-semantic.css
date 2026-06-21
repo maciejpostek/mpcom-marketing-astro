@@ -1,0 +1,62 @@
+/*
+ * MPCOM global layout semantics.
+ */
+
+:root {
+  /* Site padding
+   * Fluid horizontal page padding between mobile and desktop limits.
+   */
+  --site-padding-inline:
+    clamp(
+      var(--site-padding-inline-min),
+      0.5714rem + 2.1429vw,
+      var(--site-padding-inline-max)
+    );
+
+  /* Containers
+   * Main, reading and full-width content boundaries.
+   */
+  --container-main:
+    min(
+      calc(100% - 2 * var(--site-padding-inline)),
+      var(--container-main-max)
+    );
+  --container-small:
+    min(
+      calc(100% - 2 * var(--site-padding-inline)),
+      var(--container-small-max)
+    );
+  --container-full: var(--container-full-max);
+
+  /* Composition grid
+   * Shared column count, gap and calculated column width.
+   */
+  --site-grid-columns: 12;
+  --site-grid-column-gap:
+    clamp(var(--size-16), 0.9286rem + 0.3571vw, var(--size-20));
+  --site-grid-column-width:
+    calc(
+      (
+        min(
+          var(--container-main-max),
+          calc(100vw - 2 * var(--site-padding-inline))
+        ) -
+        var(--site-grid-column-gap) * (var(--site-grid-columns) - 1)
+      ) /
+      var(--site-grid-columns)
+    );
+}
+
+@media (width < 64rem) {
+  :root {
+    /* Tablet composition grid. */
+    --site-grid-columns: 8;
+  }
+}
+
+@media (width < 48rem) {
+  :root {
+    /* Mobile composition grid. */
+    --site-grid-columns: 4;
+  }
+}

@@ -21,7 +21,7 @@ const { eyebrow, title, action, href, portrait = false } = Astro.props;
       <h2>{title}</h2>
     </div>
   </div>
-  <a class="button button--primary" href={href}>
+  <a class="button button--primary" data-component-size="small" href={href}>
     {action}
     <ArrowRight size={15} />
   </a>

@@ -18,14 +18,14 @@ const { project } = Astro.props;
     </span>
   </button>
   <div class="project-card__meta">
-    <span class="badge badge--blue">Case Study</span>
+    <span class="badge badge--blue" data-component-size="tiny">Case Study</span>
     <span>{project.date}</span>
   </div>
   <h3>{project.title}</h3>
   <p>{project.summary}</p>
   <div class="project-card__footer">
     <span>{project.scope}</span>
-    <button class="icon-button" type="button" data-open-case={project.slug} title={`Open ${project.title}`}>
+    <button class="icon-button" data-component-size="small" type="button" data-open-case={project.slug} title={`Open ${project.title}`}>
       <ArrowRight size={16} />
     </button>
   </div>

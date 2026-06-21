@@ -1,0 +1,68 @@
+/*
+ * MPCOM typography foundations.
+ * Inter is the current exploration baseline. Heading and body families remain
+ * separate so either role can change on an exploration branch.
+ */
+
+:root {
+  /* Font families
+   * Heading and body roles remain separate for independent exploration.
+   */
+  --font-family-heading: "Inter", Arial, sans-serif;
+  --font-family-body: "Inter", Arial, sans-serif;
+  --font-family-mono:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* Font weights
+   * Universal role names allow the underlying numeric values to change.
+   */
+  --font-weight-normal: 400;
+  --font-weight-emphasis: 500;
+  --font-weight-strong: 600;
+
+  /* Display and heading sizes
+   * Larger styles scale fluidly between mobile and desktop limits.
+   */
+  --font-size-display:
+    clamp(3.5rem, 3.0714rem + 2.1429vw, 5rem);
+  --font-size-h1:
+    clamp(3rem, 2.7143rem + 1.4286vw, 4rem);
+  --font-size-h2:
+    clamp(2.5rem, 2.2143rem + 1.4286vw, 3.5rem);
+  --font-size-h3:
+    clamp(2rem, 1.7143rem + 1.4286vw, 3rem);
+  --font-size-h4:
+    clamp(1.75rem, 1.5357rem + 1.0714vw, 2.5rem);
+  --font-size-h5:
+    clamp(1.5rem, 1.3571rem + 0.7143vw, 2rem);
+  --font-size-h6:
+    clamp(1.25rem, 1.1786rem + 0.3571vw, 1.5rem);
+
+  /* Body sizes
+   * Reading sizes remain fixed or scale only subtly for legibility.
+   */
+  --font-size-body-large:
+    clamp(1.125rem, 1.0893rem + 0.1786vw, 1.25rem);
+  --font-size-body-medium:
+    clamp(1.0625rem, 1.0446rem + 0.0893vw, 1.125rem);
+  --font-size-body-base: 1rem;
+  --font-size-body-small: 0.875rem;
+  --font-size-body-tiny: 0.75rem;
+
+  /* Line heights
+   * Reusable vertical rhythm independent of a specific text style.
+   */
+  --line-height-none: 1;
+  --line-height-tight: 1.1;
+  --line-height-compact: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+
+  /* Letter spacing
+   * Reusable tracking values for display, heading and utility text.
+   */
+  --letter-spacing-tightest: -0.03em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-subtle: -0.01em;
+  --letter-spacing-default: 0;
+}

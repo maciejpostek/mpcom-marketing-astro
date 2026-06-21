@@ -14,19 +14,19 @@ const { stages } = Astro.props;
   <button class="drawer-backdrop" type="button" data-close-drawer aria-label="Close panel"></button>
   <aside class="drawer" role="dialog" aria-modal="true" aria-label="Process stage details">
     <div class="drawer__topbar">
-      <span class="badge" data-stage-category>Process stage</span>
-      <button class="icon-button" type="button" data-close-drawer title="Close panel">
+      <span class="badge" data-component-size="tiny" data-stage-category>Process stage</span>
+      <button class="icon-button" data-component-size="small" type="button" data-close-drawer title="Close panel">
         <X size={17} />
       </button>
     </div>
     <div class="drawer__content" data-stage-content></div>
     <div class="drawer__footer">
-      <button type="button" data-stage-previous>
+      <button type="button" data-component-size="small" data-stage-previous>
         <ArrowLeft size={16} />
         Previous
       </button>
       <span data-stage-counter>1 of {stages.length}</span>
-      <button type="button" data-stage-next>
+      <button type="button" data-component-size="small" data-stage-next>
         Next
         <ArrowRight size={16} />
       </button>

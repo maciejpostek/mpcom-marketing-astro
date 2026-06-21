@@ -1,0 +1,60 @@
+/*
+ * MPCOM global size semantics.
+ * Fluid values are defined directly on the role that needs fluid behavior.
+ */
+
+:root {
+  /* Section spacing
+   * Responsive vertical rhythm for page sections and hero openings.
+   */
+  --section-padding-compact:
+    clamp(var(--size-32), 1.7143rem + 1.4286vw, var(--size-48));
+  --section-padding-default:
+    clamp(var(--size-48), 2.1429rem + 4.2857vw, var(--size-96));
+  --section-padding-large:
+    clamp(var(--size-64), 2.8571rem + 5.7143vw, var(--size-128));
+  --section-padding-hero-top:
+    clamp(var(--size-72), 2.9286rem + 7.8571vw, var(--size-160));
+
+  /* Generic component padding
+   * Reusable inner spacing for cards, panels and composed UI.
+   */
+  --component-padding-small: var(--size-12);
+  --component-padding-medium:
+    clamp(var(--size-16), 0.8571rem + 0.7143vw, var(--size-24));
+  --component-padding-large:
+    clamp(var(--size-24), 1.2143rem + 1.4286vw, var(--size-40));
+
+  /* Gaps
+   * Reusable spacing between sibling elements.
+   */
+  --gap-none: var(--size-0);
+  --gap-tiny: var(--size-4);
+  --gap-small: var(--size-8);
+  --gap-medium:
+    clamp(var(--size-12), 0.5357rem + 1.0714vw, var(--size-24));
+  --gap-large:
+    clamp(var(--size-24), 1.0714rem + 2.1429vw, var(--size-48));
+
+  /* Radius
+   * Shared corner treatments independent of component type.
+   */
+  --radius-none: var(--size-0);
+  --radius-small: var(--size-4);
+  --radius-medium: var(--size-8);
+  --radius-large: var(--size-12);
+  --radius-full: 999rem;
+
+  /* Border width
+   * Shared stroke widths for standard and emphasized boundaries.
+   */
+  --border-width-default: var(--size-1);
+  --border-width-strong: var(--size-2);
+}
+
+@media (width < 48rem) {
+  :root {
+    /* Composed surfaces use a tighter medium padding on narrow screens. */
+    --component-padding-medium: var(--size-16);
+  }
+}

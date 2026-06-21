@@ -15,12 +15,12 @@ import { CalendarDays, Moon, Sun } from "@lucide/astro";
     <span class="utility-item utility-item--muted">Your time <span data-local-time>--:--</span></span>
   </div>
   <div class="topbar__actions">
-    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color mode">
+    <button class="theme-toggle" data-component-size="small" type="button" data-theme-toggle aria-label="Switch color mode">
       <Moon class="theme-icon theme-icon--moon" size={15} />
       <Sun class="theme-icon theme-icon--sun" size={15} />
     </button>
     <span class="topbar__note">Always open to talk</span>
-    <a class="button button--primary" href="/contact">
+    <a class="button button--primary" data-component-size="small" href="/contact">
       <CalendarDays size={15} />
       Contact
     </a>

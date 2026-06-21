@@ -28,9 +28,9 @@ import Portrait from "../components/Portrait.astro";
         </div>
         <div class="calendar-month">
           <div class="calendar-month__header">
-            <button class="icon-button" type="button" title="Previous month"><ArrowLeft size={15} /></button>
+            <button class="icon-button" data-component-size="small" type="button" title="Previous month"><ArrowLeft size={15} /></button>
             <strong>July 2026</strong>
-            <button class="icon-button" type="button" title="Next month"><ArrowRight size={15} /></button>
+            <button class="icon-button" data-component-size="small" type="button" title="Next month"><ArrowRight size={15} /></button>
           </div>
           <div class="calendar-grid">
             {["M", "T", "W", "T", "F", "S", "S"].map((day) => <span class="calendar-day-label">{day}</span>)}
@@ -49,19 +49,19 @@ import Portrait from "../components/Portrait.astro";
       <section class="contact-form-panel">
         <form class="contact-form" data-contact-form>
           <div class="form-row">
-            <label class="field"><span>First name</span><input name="firstName" placeholder="Alex" /></label>
-            <label class="field"><span>Last name</span><input name="lastName" placeholder="Morgan" /></label>
+            <label class="field"><span>First name</span><input data-component-size="medium" name="firstName" placeholder="Alex" /></label>
+            <label class="field"><span>Last name</span><input data-component-size="medium" name="lastName" placeholder="Morgan" /></label>
           </div>
-          <label class="field"><span>Work e-mail</span><input name="email" type="email" placeholder="alex@company.com" /></label>
-          <label class="field"><span>Company</span><input name="company" placeholder="Company name" /></label>
-          <label class="field"><span>Current product or website</span><input name="website" placeholder="https://" /></label>
-          <label class="field"><span>Project context</span><textarea name="context" placeholder="What are you building, what is changing and where does the current system create friction?"></textarea></label>
+          <label class="field"><span>Work e-mail</span><input data-component-size="medium" name="email" type="email" placeholder="alex@company.com" /></label>
+          <label class="field"><span>Company</span><input data-component-size="medium" name="company" placeholder="Company name" /></label>
+          <label class="field"><span>Current product or website</span><input data-component-size="medium" name="website" placeholder="https://" /></label>
+          <label class="field"><span>Project context</span><textarea data-component-size="medium" name="context" placeholder="What are you building, what is changing and where does the current system create friction?"></textarea></label>
           <label class="file-drop">
             <Folder size={18} />
             <span><strong>Attach project context</strong>Brief, audit or product screenshots</span>
             <input type="file" />
           </label>
-          <button class="button button--primary button--full" type="submit">
+          <button class="button button--primary button--full" data-component-size="medium" type="submit">
             Send project context
             <Send size={15} />
           </button>
@@ -72,7 +72,7 @@ import Portrait from "../components/Portrait.astro";
           <span class="metric-label">Message received</span>
           <h2>Thank you. I will review the context before getting back to you.</h2>
           <p>This is a prototype success state. No information has been sent.</p>
-          <button class="button button--secondary" type="button" data-reset-contact>Send another message</button>
+          <button class="button button--secondary" data-component-size="small" type="button" data-reset-contact>Send another message</button>
         </div>
       </section>
     </div>

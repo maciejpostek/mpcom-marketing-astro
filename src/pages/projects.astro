@@ -31,8 +31,8 @@ const archive = projects.filter((project) => project.type === "project");
             <span class="archive-row__year">{project.date}</span>
             <div><h3>{project.title}</h3><p>{project.summary}</p></div>
             <span>{project.scope}</span>
-            <span class="badge">{project.industry}</span>
-            <a class="icon-button" href={project.liveUrl ?? "#"} title={`Open ${project.title}`}>
+            <span class="badge" data-component-size="tiny">{project.industry}</span>
+            <a class="icon-button" data-component-size="small" href={project.liveUrl ?? "#"} title={`Open ${project.title}`}>
               <ExternalLink size={16} />
             </a>
           </article>
